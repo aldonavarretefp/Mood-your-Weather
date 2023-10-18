@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */; };
 		F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */; };
 		F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D842AE02FB0009F93A1 /* ContentView.swift */; };
 		F7D59D872AE02FB0009F93A1 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D862AE02FB0009F93A1 /* Item.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvaAndEmojisView.swift; sourceTree = "<group>"; };
 		F7D59D7F2AE02FB0009F93A1 /* MoodYourWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodYourWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodYourWeatherApp.swift; sourceTree = "<group>"; };
 		F7D59D842AE02FB0009F93A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			children = (
 				F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */,
 				F7D59D842AE02FB0009F93A1 /* ContentView.swift */,
+				DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */,
 				F7D59D862AE02FB0009F93A1 /* Item.swift */,
 				F7D59D882AE02FB1009F93A1 /* Assets.xcassets */,
 				F7D59D8A2AE02FB1009F93A1 /* Preview Content */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */,
+				DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */,
 				F7D59D872AE02FB0009F93A1 /* Item.swift in Sources */,
 				F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */,
 			);
