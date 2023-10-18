@@ -9,47 +9,44 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        VStack{
+            TabView{
+                NavigationStack{
+                    VStack{
+                        
+                        Text("Drag and drop the emojis to express yourself and mood your weather.")
+                            .font(.headline)
+                            .fontWeight(.regular)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(.accent)
+                        
+                        NavigationLink(destination: Support()) {
+                            ZStack(content: {
+                                Text("Done")
+                                    .foregroundStyle(.white)
+                                    .font(.subheadline)
+                                    .bold()
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(.accent)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            })
+                        }
+                        
+                        Spacer()
                     }
+                    .navigationTitle("Mood your wheater")
+                    .padding()
+                    
+                    
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+                .tabItem { Label("Mood your weather", systemImage: "cloud") }
+                
+                SummaryView()
+                    .tabItem { Label("Summary", systemImage: "book.pages") }
             }
         }
     }
@@ -57,5 +54,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
