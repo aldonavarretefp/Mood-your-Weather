@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct CanvaAndEmojisView: View {
+    
     var body: some View {
         
         HStack {
             
             RoundedRectangle(cornerRadius: 30)
-            
-            
                 .frame(width: 267.0, height: 400.0)
                 .foregroundColor(.white)
                 .overlay {

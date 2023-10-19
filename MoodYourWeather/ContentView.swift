@@ -10,6 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     
+    var viewModel = MoodsViewModel()
 
     var body: some View {
         VStack{
@@ -23,6 +24,20 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(.accent)
                         
+                        HStack{
+                            canvas
+                            Spacer()
+                            VStack{
+                                ForEach(viewModel.moods) {
+                                    mood in
+                                    emojiButton(emoji: mood)
+                                        
+                                }
+                            }
+                        }
+                        
+                        
+                        Spacer()
                         NavigationLink(destination: Support()) {
                             ZStack(content: {
                                 Text("Done")
@@ -35,8 +50,6 @@ struct ContentView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                             })
                         }
-                        
-                        Spacer()
                     }
                     .navigationTitle("Mood your wheater")
                     .padding()
@@ -54,4 +67,17 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+extension ContentView{
+    private var canvas : some View {
+        RoundedRectangle(cornerRadius: 30)
+            .frame(width: 267.0, height: 400.0)
+            .foregroundColor(.white)
+            .overlay {
+                RoundedRectangle(cornerRadius: 30)
+                    .strokeBorder(lineWidth: 2, antialiased: true)
+                    .foregroundColor(Color.accentColor)
+            }
+    }
 }
