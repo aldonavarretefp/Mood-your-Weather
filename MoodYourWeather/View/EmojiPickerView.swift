@@ -9,19 +9,18 @@ import SwiftUI
 
 struct EmojiPickerView: View {
     
-    var viewModel: ContentViewModel = ContentViewModel()
-    
+    @ObservedObject var viewModel: ContentViewModel
+
     var body: some View {
         VStack {
-            ForEach(viewModel.moods) {
+            ForEach(Array(viewModel.moods)) {
                 mood in
                 EmojiButton(emoji: mood)
-                    
             }
         }
     }
 }
 
 #Preview {
-    EmojiPickerView()
+    EmojiPickerView(viewModel: ContentViewModel())
 }

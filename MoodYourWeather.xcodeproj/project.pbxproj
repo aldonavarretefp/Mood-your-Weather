@@ -17,6 +17,9 @@
 		F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D842AE02FB0009F93A1 /* ContentView.swift */; };
 		F7D59D892AE02FB1009F93A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7D59D882AE02FB1009F93A1 /* Assets.xcassets */; };
 		F7D59D8C2AE02FB1009F93A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7D59D8B2AE02FB1009F93A1 /* Preview Assets.xcassets */; };
+		F7DAB9662AE1822500DE85F4 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAB9652AE1822500DE85F4 /* Canvas.swift */; };
+		F7DAB9682AE1A17B00DE85F4 /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */; };
+		F7DAB96C2AE1ACF600DE85F4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAB96B2AE1ACF600DE85F4 /* Color.swift */; };
 		F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +35,9 @@
 		F7D59D842AE02FB0009F93A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F7D59D882AE02FB1009F93A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7D59D8B2AE02FB1009F93A1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F7DAB9652AE1822500DE85F4 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
+		F7DAB96B2AE1ACF600DE85F4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +71,7 @@
 		F7D59D812AE02FB0009F93A1 /* MoodYourWeather */ = {
 			isa = PBXGroup;
 			children = (
+				F7DAB9692AE1ACDF00DE85F4 /* Utils */,
 				F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */,
 				F7E46C922AE1748300A0176B /* View */,
 				E62164A02AE03256000AD82C /* Support.swift */,
@@ -84,6 +91,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F7DAB9692AE1ACDF00DE85F4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F7DAB96A2AE1ACED00DE85F4 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F7DAB96A2AE1ACED00DE85F4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F7DAB96B2AE1ACF600DE85F4 /* Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		F7E46C912AE1746100A0176B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +123,8 @@
 				E6823CCA2AE1699C0042D675 /* EmojiButton.swift */,
 				F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */,
 				E62164A22AE0326C000AD82C /* SummaryView.swift */,
+				F7DAB9652AE1822500DE85F4 /* Canvas.swift */,
+				F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,7 +209,10 @@
 			files = (
 				F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */,
 				DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */,
+				F7DAB9682AE1A17B00DE85F4 /* EmojiView.swift in Sources */,
 				E62164A12AE03256000AD82C /* Support.swift in Sources */,
+				F7DAB9662AE1822500DE85F4 /* Canvas.swift in Sources */,
+				F7DAB96C2AE1ACF600DE85F4 /* Color.swift in Sources */,
 				E6823CC72AE168ED0042D675 /* Mood.swift in Sources */,
 				E6823CCB2AE1699C0042D675 /* EmojiButton.swift in Sources */,
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,

@@ -11,11 +11,10 @@ import SwiftData
 struct ContentView: View {
     
     // Model
-    @ObservedObject private var viewModel = ContentViewModel()
+    @StateObject private var viewModel = ContentViewModel()
     
     // State variables
     @State private var isTargeted = false
-    @State private var emojisInCanvas: [Mood] = []
     @State private var canvasImage: UIImage? = nil
     @State private var availableEmojiTypes: Set<String> = Set(["😀", "😍", "🚀", "🌈", "🐱", "🎉"])
     
@@ -26,24 +25,25 @@ struct ContentView: View {
                     VStack {
                         instructionsText
                         HStack {
-                            canvas
+                            Canvas(viewModel: viewModel)
                                 .onDrop(of: ["public.text"], isTargeted: $isTargeted) { providers, location in
-                                    print(location)
                                     if let provider = providers.first {
                                         provider.loadObject(ofClass: NSString.self) { item, error in
-                                            if let text = item as? String {
-                                                if availableEmojiTypes.contains(text) {
-                                                    availableEmojiTypes.remove(text)
-                                                    let position = CGPoint(x: location.x - 50, y: location.y - 50)
-                                                    emojisInCanvas.append(Mood(name: "asdas", emoji: text, position: position))
-                                                }
+                                            guard let text = item as? String,!viewModel.emojisInCanvasSet.contains(text)  else { return }
+                                            let position = CGPoint(x: location.x, y: location.y)
+                                            let emoji = Mood(name: "asdas", emoji: text, position: position)
+                                            DispatchQueue.main.async {
+                                                viewModel.emojisInCanvas.append(emoji)
+                                                viewModel.emojisInCanvasSet.insert(emoji.emoji)
+                                                print(location, viewModel.emojisInCanvasSet)
                                             }
                                         }
                                     }
                                     return true
                                 }
                             Spacer()
-                            EmojiPickerView()
+                            EmojiPickerView(viewModel: viewModel)
+                            Spacer()
                         }
                         Spacer()
                         doneButtonView
@@ -66,16 +66,6 @@ struct ContentView: View {
 }
 
 extension ContentView {
-    private var canvas : some View {
-        RoundedRectangle(cornerRadius: 30)
-            .frame(width: 267.0, height: 400.0)
-            .foregroundColor(.white)
-            .overlay {
-                RoundedRectangle(cornerRadius: 30)
-                    .strokeBorder(lineWidth: 2, antialiased: true)
-                    .foregroundColor(Color.accentColor)
-            }
-    }
     
     private var doneButtonView: some View {
         NavigationLink(destination: Support()) {

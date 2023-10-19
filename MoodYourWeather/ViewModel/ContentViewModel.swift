@@ -15,4 +15,6 @@ class ContentViewModel: ObservableObject {
         Mood(name: "Rainy", emoji: "🌦️"),
         Mood(name: "Tornado", emoji: "🌪️")
     ]
+    @Published var emojisInCanvas: Array<Mood> = []
+    @Published var emojisInCanvasSet: Set<String> = Set()
 }
