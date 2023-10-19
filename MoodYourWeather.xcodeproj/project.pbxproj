@@ -119,12 +119,12 @@
 			isa = PBXGroup;
 			children = (
 				DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */,
+				F7DAB9652AE1822500DE85F4 /* Canvas.swift */,
 				F7D59D842AE02FB0009F93A1 /* ContentView.swift */,
 				E6823CCA2AE1699C0042D675 /* EmojiButton.swift */,
 				F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */,
-				E62164A22AE0326C000AD82C /* SummaryView.swift */,
-				F7DAB9652AE1822500DE85F4 /* Canvas.swift */,
 				F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */,
+				E62164A22AE0326C000AD82C /* SummaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
