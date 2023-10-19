@@ -9,8 +9,9 @@ import Foundation
 
 import SwiftUI
 
-struct Moods : Identifiable {
+struct Mood: Identifiable {
     var id : UUID = UUID()
     var name : String
     var emoji : String
+    var position: CGPoint = .init(x: 0, y: 0)
 }

@@ -10,27 +10,29 @@
 		DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */; };
 		E62164A12AE03256000AD82C /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A02AE03256000AD82C /* Support.swift */; };
 		E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A22AE0326C000AD82C /* SummaryView.swift */; };
-		E6823CC72AE168ED0042D675 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC62AE168ED0042D675 /* Model.swift */; };
-		E6823CC92AE169070042D675 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC82AE169070042D675 /* ViewModel.swift */; };
-		E6823CCB2AE1699C0042D675 /* emojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CCA2AE1699C0042D675 /* emojiButton.swift */; };
+		E6823CC72AE168ED0042D675 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC62AE168ED0042D675 /* Mood.swift */; };
+		E6823CC92AE169070042D675 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC82AE169070042D675 /* ContentViewModel.swift */; };
+		E6823CCB2AE1699C0042D675 /* EmojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CCA2AE1699C0042D675 /* EmojiButton.swift */; };
 		F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */; };
 		F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D842AE02FB0009F93A1 /* ContentView.swift */; };
 		F7D59D892AE02FB1009F93A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7D59D882AE02FB1009F93A1 /* Assets.xcassets */; };
 		F7D59D8C2AE02FB1009F93A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7D59D8B2AE02FB1009F93A1 /* Preview Assets.xcassets */; };
+		F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvaAndEmojisView.swift; sourceTree = "<group>"; };
 		E62164A02AE03256000AD82C /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		E62164A22AE0326C000AD82C /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
-		E6823CC62AE168ED0042D675 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		E6823CC82AE169070042D675 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		E6823CCA2AE1699C0042D675 /* emojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emojiButton.swift; sourceTree = "<group>"; };
+		E6823CC62AE168ED0042D675 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
+		E6823CC82AE169070042D675 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		E6823CCA2AE1699C0042D675 /* EmojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiButton.swift; sourceTree = "<group>"; };
 		F7D59D7F2AE02FB0009F93A1 /* MoodYourWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodYourWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodYourWeatherApp.swift; sourceTree = "<group>"; };
 		F7D59D842AE02FB0009F93A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F7D59D882AE02FB1009F93A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7D59D8B2AE02FB1009F93A1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */,
-				F7D59D842AE02FB0009F93A1 /* ContentView.swift */,
-				DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */,
-				E6823CCA2AE1699C0042D675 /* emojiButton.swift */,
-				E62164A22AE0326C000AD82C /* SummaryView.swift */,
+				F7E46C922AE1748300A0176B /* View */,
 				E62164A02AE03256000AD82C /* Support.swift */,
-				E6823CC62AE168ED0042D675 /* Model.swift */,
-				E6823CC82AE169070042D675 /* ViewModel.swift */,
+				F7E46C912AE1746100A0176B /* Model */,
+				F7E46C932AE174F400A0176B /* ViewModel */,
 				F7D59D882AE02FB1009F93A1 /* Assets.xcassets */,
 				F7D59D8A2AE02FB1009F93A1 /* Preview Content */,
 			);
@@ -83,6 +82,34 @@
 				F7D59D8B2AE02FB1009F93A1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F7E46C912AE1746100A0176B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E6823CC62AE168ED0042D675 /* Mood.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F7E46C922AE1748300A0176B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */,
+				F7D59D842AE02FB0009F93A1 /* ContentView.swift */,
+				E6823CCA2AE1699C0042D675 /* EmojiButton.swift */,
+				F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */,
+				E62164A22AE0326C000AD82C /* SummaryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F7E46C932AE174F400A0176B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E6823CC82AE169070042D675 /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,11 +185,12 @@
 				F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */,
 				DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */,
 				E62164A12AE03256000AD82C /* Support.swift in Sources */,
-				E6823CC72AE168ED0042D675 /* Model.swift in Sources */,
-				E6823CCB2AE1699C0042D675 /* emojiButton.swift in Sources */,
+				E6823CC72AE168ED0042D675 /* Mood.swift in Sources */,
+				E6823CCB2AE1699C0042D675 /* EmojiButton.swift in Sources */,
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,
+				F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */,
 				F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */,
-				E6823CC92AE169070042D675 /* ViewModel.swift in Sources */,
+				E6823CC92AE169070042D675 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

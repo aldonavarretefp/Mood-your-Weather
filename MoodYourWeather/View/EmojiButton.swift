@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-struct emojiButton: View {
-    
-    var emoji : Moods
+struct EmojiButton: View {
+    var emoji : Mood
     var body: some View {
-        
         Text(emoji.emoji)
             .font(.title3)
             .bold()
@@ -20,8 +18,10 @@ struct emojiButton: View {
             .background(Color(.systemGray5))
             .clipShape(RoundedRectangle(cornerRadius: 20))
     }
+    
+    var position: CGPoint = .init(x: 0, y: 0)
 }
 
 #Preview {
-    emojiButton(emoji: Moods(name: "Prova", emoji: "❤️"))
+    EmojiButton(emoji: Mood(name: "Prova", emoji: "❤️"))
 }
