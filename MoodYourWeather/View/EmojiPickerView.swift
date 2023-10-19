@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmojiPickerView: View {
     
-    @ObservedObject var viewModel: ContentViewModel
+    @ObservedObject var viewModel: HomeViewModel
 
     var body: some View {
         VStack {
@@ -22,5 +22,5 @@ struct EmojiPickerView: View {
 }
 
 #Preview {
-    EmojiPickerView(viewModel: ContentViewModel())
+    EmojiPickerView(viewModel: HomeViewModel())
 }

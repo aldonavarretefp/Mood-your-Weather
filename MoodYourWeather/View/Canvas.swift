@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Canvas: View {
     
-    @ObservedObject var viewModel: ContentViewModel
+    @ObservedObject var viewModel: HomeViewModel
     
     private let canvasFrame: CGSize = .init(width: 267.0, height: 400.0)
     
@@ -32,5 +32,5 @@ struct Canvas: View {
 }
 
 #Preview {
-    return Canvas(viewModel: ContentViewModel())
+    return Canvas(viewModel: HomeViewModel())
 }

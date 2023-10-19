@@ -11,7 +11,7 @@
 		E62164A12AE03256000AD82C /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A02AE03256000AD82C /* Support.swift */; };
 		E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A22AE0326C000AD82C /* SummaryView.swift */; };
 		E6823CC72AE168ED0042D675 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC62AE168ED0042D675 /* Mood.swift */; };
-		E6823CC92AE169070042D675 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC82AE169070042D675 /* ContentViewModel.swift */; };
+		E6823CC92AE169070042D675 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC82AE169070042D675 /* HomeViewModel.swift */; };
 		E6823CCB2AE1699C0042D675 /* EmojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CCA2AE1699C0042D675 /* EmojiButton.swift */; };
 		F7224E082AE1CA08003303AD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7224E072AE1CA08003303AD /* View.swift */; };
 		F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */; };
@@ -29,7 +29,7 @@
 		E62164A02AE03256000AD82C /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		E62164A22AE0326C000AD82C /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		E6823CC62AE168ED0042D675 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
-		E6823CC82AE169070042D675 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		E6823CC82AE169070042D675 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E6823CCA2AE1699C0042D675 /* EmojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiButton.swift; sourceTree = "<group>"; };
 		F7224E072AE1CA08003303AD /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		F7D59D7F2AE02FB0009F93A1 /* MoodYourWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodYourWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +135,7 @@
 		F7E46C932AE174F400A0176B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				E6823CC82AE169070042D675 /* ContentViewModel.swift */,
+				E6823CC82AE169070042D675 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -222,7 +222,7 @@
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,
 				F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */,
 				F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */,
-				E6823CC92AE169070042D675 /* ContentViewModel.swift in Sources */,
+				E6823CC92AE169070042D675 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
