@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
     
@@ -27,19 +26,7 @@ struct ContentView: View {
                         HStack {
                             Canvas(viewModel: viewModel)
                                 .onDrop(of: ["public.text"], isTargeted: $isTargeted) { providers, location in
-                                    if let provider = providers.first {
-                                        provider.loadObject(ofClass: NSString.self) { item, error in
-                                            guard let text = item as? String,!viewModel.emojisInCanvasSet.contains(text)  else { return }
-                                            let position = CGPoint(x: location.x, y: location.y)
-                                            let emoji = Mood(name: "asdas", emoji: text, position: position)
-                                            DispatchQueue.main.async {
-                                                viewModel.emojisInCanvas.append(emoji)
-                                                viewModel.emojisInCanvasSet.insert(emoji.emoji)
-                                                print(location, viewModel.emojisInCanvasSet)
-                                            }
-                                        }
-                                    }
-                                    return true
+                                        return dropLogic(providers: providers, location: location)
                                 }
                             Spacer()
                             EmojiPickerView(viewModel: viewModel)
@@ -59,14 +46,35 @@ struct ContentView: View {
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
+    
+    private func dropLogic(providers: [NSItemProvider], location: CGPoint) -> Bool {
+        guard let provider = providers.first else { return false }
+        provider.loadObject(ofClass: NSString.self) { item, error in
+            if let error = error {
+                print("ERROR: \(error.localizedDescription)")
+                return
+            }
+            guard let text = item as? String, !viewModel.emojisInCanvasSet.contains(text) else {
+                return
+            }
+            let position = CGPoint(x: location.x, y: location.y)
+            /*
+             * Appending emojisInCanvas array the new emoji and insert the actual String into the set in order
+             * to compare
+             */
+            DispatchQueue.main.async {
+                let emoji = Mood(name: "asdas", emoji: text, position: position)
+                viewModel.emojisInCanvas.append(emoji)
+                viewModel.emojisInCanvasSet.insert(emoji.emoji)
+                print(location, viewModel.emojisInCanvasSet)
+            }
+            
+        }
+        return true
+    }
 }
 
 extension ContentView {
-    
     private var doneButtonView: some View {
         NavigationLink(destination: Support()) {
             ZStack(content: {
@@ -89,4 +97,10 @@ extension ContentView {
             .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundStyle(.accent)
     }
+}
+
+
+
+#Preview {
+    ContentView()
 }

@@ -3,8 +3,8 @@
 .DS_Store
 
 # User settings
-MoodYourWeather.xcodeproj/project.xcworkspace/xcuserdata/
 xcuserdata/
+MoodYourWeather.xcodeproj/project.xcworkspace/xcuserdata/navarrete.xcuserdatad/UserInterfaceState.xcuserstate
 
 # compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 

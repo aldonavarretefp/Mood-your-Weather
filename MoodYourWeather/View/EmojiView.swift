@@ -33,17 +33,19 @@ struct EmojiView: View {
                         )
                         
                         // Prevent dragging outside the canvas boundaries
-                        if newPosition.x >= 0 && newPosition.x <= canvasFrame.width && newPosition.y >= 0 && newPosition.y <= canvasFrame.height {
+                        if newPosition.x >= 10 && newPosition.x <= canvasFrame.width - 10 && newPosition.y >= 10 && newPosition.y <= canvasFrame.height - 10 {
                             dragOffset = gesture.translation
                         }
                     }
                     .onEnded { gesture in
                         // Update the emoji's position within the canvas bounds
                         let newPosition = CGPoint(
-                            x: max(0, min(emoji.position.x + gesture.translation.width, canvasFrame.width)),
-                            y: max(0, min(emoji.position.y + gesture.translation.height, canvasFrame.height))
+                            x: max(10, min(emoji.position.x + gesture.translation.width - 10, canvasFrame.width - 10)),
+                            y: max(10, min(emoji.position.y + gesture.translation.height - 10, canvasFrame.height - 10))
                         )
+                        
                         emoji.position = newPosition
+                        
                         // Reset the drag offset
                         dragOffset = .zero
                     }
