@@ -13,6 +13,7 @@
 		E6823CC72AE168ED0042D675 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC62AE168ED0042D675 /* Mood.swift */; };
 		E6823CC92AE169070042D675 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC82AE169070042D675 /* ContentViewModel.swift */; };
 		E6823CCB2AE1699C0042D675 /* EmojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CCA2AE1699C0042D675 /* EmojiButton.swift */; };
+		F7224E082AE1CA08003303AD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7224E072AE1CA08003303AD /* View.swift */; };
 		F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */; };
 		F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D59D842AE02FB0009F93A1 /* ContentView.swift */; };
 		F7D59D892AE02FB1009F93A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7D59D882AE02FB1009F93A1 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		E6823CC62AE168ED0042D675 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
 		E6823CC82AE169070042D675 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		E6823CCA2AE1699C0042D675 /* EmojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiButton.swift; sourceTree = "<group>"; };
+		F7224E072AE1CA08003303AD /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		F7D59D7F2AE02FB0009F93A1 /* MoodYourWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodYourWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodYourWeatherApp.swift; sourceTree = "<group>"; };
 		F7D59D842AE02FB0009F93A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				F7DAB96B2AE1ACF600DE85F4 /* Color.swift */,
+				F7224E072AE1CA08003303AD /* View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7224E082AE1CA08003303AD /* View.swift in Sources */,
 				F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */,
 				DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */,
 				F7DAB9682AE1A17B00DE85F4 /* EmojiView.swift in Sources */,

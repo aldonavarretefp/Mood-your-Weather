@@ -15,7 +15,6 @@ struct ContentView: View {
     // State variables
     @State private var isTargeted = false
     @State private var canvasImage: UIImage? = nil
-    @State private var availableEmojiTypes: Set<String> = Set(["😀", "😍", "🚀", "🌈", "🐱", "🎉"])
     
     var body: some View {
         VStack {
@@ -25,19 +24,25 @@ struct ContentView: View {
                         instructionsText
                         HStack {
                             Canvas(viewModel: viewModel)
-                                .onDrop(of: ["public.text"], isTargeted: $isTargeted) { providers, location in
-                                        return dropLogic(providers: providers, location: location)
-                                }
+                                .onDrop(
+                                    of: ["public.text"],
+                                    isTargeted: $isTargeted,
+                                    perform: dropLogic
+                                )
                             Spacer()
                             EmojiPickerView(viewModel: viewModel)
                             Spacer()
                         }
                         Spacer()
+                        if !viewModel.emojisInCanvas.isEmpty {
+                            resetButton
+                                .transition(.opacity)
+                        }
+                        
                         doneButtonView
                     }
                     .navigationTitle("Mood your wheater")
                     .padding()
-                    
                     
                 }
                 .tabItem { Label("Mood your weather", systemImage: "cloud") }
@@ -64,7 +69,9 @@ struct ContentView: View {
              */
             DispatchQueue.main.async {
                 let emoji = Mood(name: "asdas", emoji: text, position: position)
-                viewModel.emojisInCanvas.append(emoji)
+                withAnimation {
+                    viewModel.emojisInCanvas.append(emoji)
+                }
                 viewModel.emojisInCanvasSet.insert(emoji.emoji)
                 print(location, viewModel.emojisInCanvasSet)
             }
@@ -75,18 +82,26 @@ struct ContentView: View {
 }
 
 extension ContentView {
+    
+    private var resetButton: some View {
+        Button {
+            withAnimation {
+                self.viewModel.emojisInCanvas = []
+                self.viewModel.emojisInCanvasSet = Set()
+            }
+        } label: {
+            Text("Reset")
+                .buttonStyleModifier(.gray)
+            
+        }
+    }
+    
     private var doneButtonView: some View {
         NavigationLink(destination: Support()) {
-            ZStack(content: {
+            ZStack {
                 Text("Done")
-                    .foregroundStyle(.white)
-                    .font(.subheadline)
-                    .bold()
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.accent)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            })
+                    .buttonStyleModifier(.accent)
+            }
         }
     }
     
