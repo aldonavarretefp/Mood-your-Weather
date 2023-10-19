@@ -9,9 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-
+    
     // Model
-    var viewModel: ContentViewModel = ContentViewModel()
+    @ObservedObject private var viewModel = ContentViewModel()
     
     // State variables
     @State private var isTargeted = false
@@ -27,6 +27,21 @@ struct ContentView: View {
                         instructionsText
                         HStack {
                             canvas
+                                .onDrop(of: ["public.text"], isTargeted: $isTargeted) { providers, location in
+                                    print(location)
+                                    if let provider = providers.first {
+                                        provider.loadObject(ofClass: NSString.self) { item, error in
+                                            if let text = item as? String {
+                                                if availableEmojiTypes.contains(text) {
+                                                    availableEmojiTypes.remove(text)
+                                                    let position = CGPoint(x: location.x - 50, y: location.y - 50)
+                                                    emojisInCanvas.append(Mood(name: "asdas", emoji: text, position: position))
+                                                }
+                                            }
+                                        }
+                                    }
+                                    return true
+                                }
                             Spacer()
                             EmojiPickerView()
                         }
@@ -51,7 +66,6 @@ struct ContentView: View {
 }
 
 extension ContentView {
-    
     private var canvas : some View {
         RoundedRectangle(cornerRadius: 30)
             .frame(width: 267.0, height: 400.0)

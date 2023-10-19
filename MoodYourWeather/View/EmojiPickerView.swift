@@ -16,7 +16,7 @@ struct EmojiPickerView: View {
             ForEach(viewModel.moods) {
                 mood in
                 EmojiButton(emoji: mood)
-                
+                    
             }
         }
     }

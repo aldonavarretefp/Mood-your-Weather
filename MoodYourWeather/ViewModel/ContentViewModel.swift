@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ContentViewModel {
-    var moods : [Mood] = [
+class ContentViewModel: ObservableObject {
+    @Published var moods : [Mood] = [
         Mood(name: "Sun", emoji: "☀️"),
         Mood(name: "Rainbow", emoji: "🌈"),
         Mood(name: "Cloudy", emoji: "⛅️"),
