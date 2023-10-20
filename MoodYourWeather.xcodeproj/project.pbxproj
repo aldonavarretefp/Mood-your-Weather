@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */; };
 		E62164A12AE03256000AD82C /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A02AE03256000AD82C /* Support.swift */; };
 		E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A22AE0326C000AD82C /* SummaryView.swift */; };
 		E6823CC72AE168ED0042D675 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC62AE168ED0042D675 /* Mood.swift */; };
@@ -26,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvaAndEmojisView.swift; sourceTree = "<group>"; };
 		E62164A02AE03256000AD82C /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		E62164A22AE0326C000AD82C /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		E6823CC62AE168ED0042D675 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 		F7E46C922AE1748300A0176B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DEB8FEC22AE0311A002067D7 /* CanvaAndEmojisView.swift */,
 				F7DAB9652AE1822500DE85F4 /* Canvas.swift */,
 				F7D59D842AE02FB0009F93A1 /* ContentView.swift */,
 				E6823CCA2AE1699C0042D675 /* EmojiButton.swift */,
@@ -215,7 +212,6 @@
 			files = (
 				F7224E082AE1CA08003303AD /* View.swift in Sources */,
 				F7D59D852AE02FB0009F93A1 /* ContentView.swift in Sources */,
-				DEB8FEC32AE0311A002067D7 /* CanvaAndEmojisView.swift in Sources */,
 				F7DAB9682AE1A17B00DE85F4 /* EmojiView.swift in Sources */,
 				E62164A12AE03256000AD82C /* Support.swift in Sources */,
 				F7DAB9662AE1822500DE85F4 /* Canvas.swift in Sources */,
