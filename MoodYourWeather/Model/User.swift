@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct User {
+    var id : UUID = UUID()
+    var registers : [Register] = []
+    //var name: String
+}
