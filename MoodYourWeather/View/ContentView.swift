@@ -7,6 +7,18 @@
 
 import SwiftUI
 
+struct Register: Identifiable, Hashable {
+    var id: UUID = UUID()
+    let emojis: [String]
+    let snapshot: UIImage
+    let date: Date
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}
+
 struct ContentView: View {
     
     // Model
@@ -15,11 +27,13 @@ struct ContentView: View {
     // State variables
     @State private var isTargeted = false
     @State private var canvasImage: UIImage? = nil
+    @State private var path: [Register] = []
+    @State private var isAlertPresented: Bool = false
     
     var body: some View {
         VStack {
             TabView {
-                NavigationStack {
+                NavigationStack(path: $path) {
                     VStack {
                         instructionsText
                         HStack {
@@ -29,6 +43,7 @@ struct ContentView: View {
                                     isTargeted: $isTargeted,
                                     perform: viewModel.dropLogic
                                 )
+                                .border(.red)
                             Spacer()
                             EmojiPickerView(viewModel: viewModel)
                             Spacer()
@@ -38,18 +53,36 @@ struct ContentView: View {
                             resetButton
                                 .transition(.opacity)
                         }
-                        
                         doneButtonView
                     }
-                    .navigationTitle("Mood your wheater")
+                    .navigationTitle("Mood Your Weather")
+                    .navigationDestination(for: Register.self) { register in
+                        SupportAlternative(path: $path, register: register)
+                    }
                     .padding()
-                    
+                    .alert(isPresented: $isAlertPresented) {
+                        Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
+                    }
                 }
                 .tabItem { Label("Mood your weather", systemImage: "cloud") }
                 SummaryView()
                     .tabItem { Label("Summary", systemImage: "book.pages") }
             }
         }
+    }
+    
+    func snapshot<Content: View>(_ view: Content, asImageWithScale scale: CGFloat = 1.0) -> UIImage {
+        let controller = UIHostingController(rootView: view)
+        let viewSize = controller.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .defaultHigh)
+        controller.view.bounds = CGRect(origin: .zero, size: CGSize(width: viewSize.width, height: viewSize.height + 60))
+        return controller.view.asImage()
+    }
+}
+
+extension UIView {
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: self.bounds.size)
+        return renderer.image { _ in drawHierarchy(in: bounds, afterScreenUpdates: true) }
     }
 }
 
@@ -69,11 +102,23 @@ extension ContentView {
     }
     
     private var doneButtonView: some View {
-        NavigationLink(destination: Support()) {
-            ZStack {
-                Text("Done")
-                    .buttonStyleModifier(.accent)
+        Button {
+            if viewModel.emojisInCanvas.isEmpty {
+                self.isAlertPresented = true
+                return
             }
+            DispatchQueue.main.async {
+                canvasImage = snapshot(Canvas(viewModel: viewModel))
+                guard let canvasImage else {
+                    print("ERROR: Couldn't generate image from canvas.")
+                    return
+                }
+                let newRegister: Register = .init(emojis: Array(viewModel.emojisInCanvasSet), snapshot: canvasImage, date: .now)
+                path.append(newRegister)
+            }
+        } label: {
+            Text("Done")
+                .buttonStyleModifier(.accent)
         }
     }
     
