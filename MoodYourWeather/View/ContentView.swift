@@ -29,6 +29,8 @@ struct ContentView: View {
     @State private var canvasImage: UIImage? = nil
     @State private var path: [Register] = []
     @State private var isAlertPresented: Bool = false
+    @State private var showOnboarding = true
+
     
     var body: some View {
         VStack {
@@ -43,7 +45,7 @@ struct ContentView: View {
                                     isTargeted: $isTargeted,
                                     perform: viewModel.dropLogic
                                 )
-                                .border(.red)
+                                
                             Spacer()
                             EmojiPickerView(viewModel: viewModel)
                             Spacer()
@@ -69,7 +71,11 @@ struct ContentView: View {
                     .tabItem { Label("Summary", systemImage: "book.pages") }
             }
         }
+        .fullScreenCover(isPresented: $showOnboarding, content: {
+            OnboardingView(showOnboarding: $showOnboarding)
+        })
     }
+        
     
     func snapshot<Content: View>(_ view: Content, asImageWithScale scale: CGFloat = 1.0) -> UIImage {
         let controller = UIHostingController(rootView: view)
