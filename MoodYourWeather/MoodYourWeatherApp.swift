@@ -11,6 +11,8 @@ import SwiftData
 @main
 struct MoodYourWeatherApp: App {
     
+    @StateObject private var userDataModel = UserDataModel()
+    
     init() {
         // Large and inline navigation title appereance.
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.accent]
@@ -20,6 +22,7 @@ struct MoodYourWeatherApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userDataModel)
         }
     }
 }

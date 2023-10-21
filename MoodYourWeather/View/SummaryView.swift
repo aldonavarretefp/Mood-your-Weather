@@ -8,11 +8,33 @@
 import SwiftUI
 
 struct SummaryView: View {
+    
+    @EnvironmentObject private var userDataModel : UserDataModel
+    @StateObject private var viewModel = HomeViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+<<<<<<< HEAD
+        ForEach(viewModel.moods) { mood in
+            HStack {
+                EmojiButton(emoji: mood)
+                VStack() {
+                    GrowingBarView(value: 1)
+                }
+                .frame(minHeight: .infinity)
+            }
+            .frame(height: 60)
+=======
+        HStack {
+            EmojiPickerView(viewModel: viewModel)
+            VStack {
+                ForEach(viewModel.moods){ emoji in
+                    Text("Lorem ipsum")
+                }
+            }
+>>>>>>> main
+        }
     }
 }
-
-#Preview {
-    SummaryView()
-}
+    #Preview {
+        SummaryView()
+    }

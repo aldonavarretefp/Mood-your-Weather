@@ -30,19 +30,6 @@ struct SupportAlternative: View {
                         .clipped()
                         .frame(width: 300)
                         .border(.blue)
-                    Text("ID of Register")
-                        .bold()
-                        .font(.headline)
-                    Text(register.id.uuidString)
-                    Text("Date of Register")
-                        .bold()
-                        .font(.headline)
-                    Text(register.date.formatted(.dateTime))
-                    HStack(spacing: 8) {
-                        ForEach(register.emojis, id: \.self) { emoji in
-                            EmojiButton(emoji: .init(name: "asda", emoji: emoji))
-                        }
-                    }
                     
                     Picker("", selection: $pickerSelection) {
                         ForEach(0..<register.emojis.count, id: \.self) { index in
@@ -51,6 +38,7 @@ struct SupportAlternative: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .padding(.top, 25)
                 }
                 .padding()
             }
@@ -62,5 +50,5 @@ struct SupportAlternative: View {
 #Preview {
     SupportAlternative(path: .constant([
         .init(emojis: ["🍎"], snapshot: UIImage(), date: Date())
-    ]), register: .init(emojis: ["💯"], snapshot: UIImage(systemName: "circle.fill")!, date: .now))
+    ]), register: .init(emojis: ["☀️","🌪️","🌧️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now))
 }

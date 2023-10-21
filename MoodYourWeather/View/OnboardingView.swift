@@ -11,7 +11,7 @@ struct OnboardingView: View {
     @State var effect = false
     @Binding var showOnboarding : Bool
     @State var transition = true
-    
+    @State private var bounceSize: CGFloat = 1
     @State private var offset: CGFloat = -UIScreen.main.bounds.width
     @State private var opacity: Double = 1
     
@@ -46,6 +46,12 @@ struct OnboardingView: View {
                     .bold()
                     .foregroundStyle(.white)
                     .opacity(0.6)
+                    .scaleEffect(bounceSize)
+                    .onAppear(){
+                        withAnimation(Animation.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
+                            bounceSize = 1.15
+                        }
+                    }
             }
         }
         .onTapGesture(perform: {
@@ -53,7 +59,7 @@ struct OnboardingView: View {
         })
     }
 }
-            
+       
 #Preview {
     OnboardingView(showOnboarding: .constant(true))
 }

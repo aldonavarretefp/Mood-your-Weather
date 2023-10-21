@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0F3D8202AE43140002B8220 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F3D81F2AE43140002B8220 /* User.swift */; };
+		A0F3D8222AE43155002B8220 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F3D8212AE43155002B8220 /* UserDataModel.swift */; };
+		A0F3D8242AE4376E002B8220 /* GrowingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F3D8232AE4376E002B8220 /* GrowingBarView.swift */; };
 		E62164A12AE03256000AD82C /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A02AE03256000AD82C /* Support.swift */; };
 		E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62164A22AE0326C000AD82C /* SummaryView.swift */; };
 		E6823CC72AE168ED0042D675 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6823CC62AE168ED0042D675 /* Mood.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A0F3D81F2AE43140002B8220 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A0F3D8212AE43155002B8220 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
+		A0F3D8232AE4376E002B8220 /* GrowingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingBarView.swift; sourceTree = "<group>"; };
 		E62164A02AE03256000AD82C /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		E62164A22AE0326C000AD82C /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		E6823CC62AE168ED0042D675 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
@@ -115,6 +121,7 @@
 		F7E46C912AE1746100A0176B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A0F3D81F2AE43140002B8220 /* User.swift */,
 				E6823CC62AE168ED0042D675 /* Mood.swift */,
 			);
 			path = Model;
@@ -131,6 +138,7 @@
 				E6B501B92AE41A09007C9617 /* OnboardingView.swift */,
 				E62164A22AE0326C000AD82C /* SummaryView.swift */,
 				F7BC7ADF2AE1D89F00F0096E /* SupportAlternative.swift */,
+				A0F3D8232AE4376E002B8220 /* GrowingBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -139,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				E6823CC82AE169070042D675 /* HomeViewModel.swift */,
+				A0F3D8212AE43155002B8220 /* UserDataModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -221,6 +230,9 @@
 				F7DAB96C2AE1ACF600DE85F4 /* Color.swift in Sources */,
 				E6823CC72AE168ED0042D675 /* Mood.swift in Sources */,
 				E6823CCB2AE1699C0042D675 /* EmojiButton.swift in Sources */,
+				A0F3D8242AE4376E002B8220 /* GrowingBarView.swift in Sources */,
+				A0F3D8222AE43155002B8220 /* UserDataModel.swift in Sources */,
+				A0F3D8202AE43140002B8220 /* User.swift in Sources */,
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,
 				F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */,
 				F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */,
