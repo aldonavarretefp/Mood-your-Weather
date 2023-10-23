@@ -12,8 +12,19 @@ struct SummaryView: View {
     @EnvironmentObject private var userDataModel : UserDataModel
     @StateObject private var viewModel = HomeViewModel()
     
+    
     var body: some View {
-       Text("adiona")
+        ForEach(viewModel.moods) {
+            mood in
+            HStack {
+                EmojiButton(emoji: mood)
+                VStack(alignment: .center) {
+                    GrowingBarView(value: 10)
+                        .padding(.top)
+                }
+            }
+            .frame(height: 60)
+        }
     }
 }
 
