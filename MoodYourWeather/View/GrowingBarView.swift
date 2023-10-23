@@ -14,7 +14,6 @@ struct GrowingBarView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-<<<<<<< HEAD
                 
                 Rectangle()
                     .fill(.blue.opacity(0.3))
@@ -26,21 +25,18 @@ struct GrowingBarView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .padding(0)
-=======
-                Rectangle()
-                    .frame(width: self.calculateWidth(geometry: geometry), height: 30)
-                    .foregroundStyle(.blue)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-            }
->>>>>>> main
+            
         }
     }
-    
     func calculateWidth(geometry: GeometryProxy) -> CGFloat {
         let maxWidth = geometry.size.width
         return CGFloat(self.value) / 100 * maxWidth
     }
 }
+
+
+
+
 
 #Preview {
     GrowingBarView(value: 30)
