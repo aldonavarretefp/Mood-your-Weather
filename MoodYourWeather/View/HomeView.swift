@@ -12,7 +12,6 @@ struct HomeView: View {
     // Model
     @StateObject private var homeViewModel = HomeViewModel()
     // State variables
-    @State private var isTargeted = false
     @State private var canvasImage: UIImage? = nil
     @State private var path: [Register] = []
     @State private var isAlertPresented: Bool = false
@@ -24,13 +23,8 @@ struct HomeView: View {
             VStack {
                 instructionsText
                 HStack {
-                    Canvas(viewModel: homeViewModel)
-                        .onDrop(
-                            of: ["public.text"],
-                            isTargeted: $isTargeted,
-                            perform: homeViewModel.dropLogic
-                        )
-                        
+                    Canvas()
+                        .environmentObject(homeViewModel)
                     Spacer()
                     EmojiPickerView(viewModel: homeViewModel)
                     Spacer()
@@ -38,7 +32,6 @@ struct HomeView: View {
                 Spacer()
                 if !homeViewModel.emojisInCanvas.isEmpty {
                     resetButton
-                        .transition(.opacity)
                 }
                 doneButtonView
             }
@@ -46,7 +39,6 @@ struct HomeView: View {
             .navigationDestination(for: Register.self) { register in
                 SupportAlternative(path: $path, register: register, savedAlert: $savedAlert)
                     .environmentObject(homeViewModel)
-
             }
             .padding()
             .alert(isPresented: $isAlertPresented) {
@@ -72,6 +64,7 @@ extension HomeView {
                 .buttonStyleModifier(.gray)
             
         }
+        .transition(.opacity)
     }
     
     private var doneButtonView: some View {
@@ -81,7 +74,7 @@ extension HomeView {
                 return
             }
             DispatchQueue.main.async {
-                canvasImage = homeViewModel.snapshot(Canvas(viewModel: homeViewModel))
+                canvasImage = homeViewModel.snapshot(Canvas().environmentObject(homeViewModel))
                 guard let canvasImage else {
                     print("ERROR: Couldn't generate image from canvas.")
                     return

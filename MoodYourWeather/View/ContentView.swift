@@ -11,14 +11,13 @@ import SwiftData
 struct ContentView: View {
     
     @State private var showOnboarding = true
+    
     var body: some View {
-        VStack {
-            TabView {
-                HomeView()
+        TabView {
+            HomeView()
                 .tabItem { Label("Mood your weather", systemImage: "cloud") }
-                SummaryView()
-                    .tabItem { Label("Summary", systemImage: "book.pages") }
-            }
+            SummaryView()
+                .tabItem { Label("Summary", systemImage: "book.pages") }
         }
         .fullScreenCover(isPresented: $showOnboarding, content: {
             OnboardingView(showOnboarding: $showOnboarding)
