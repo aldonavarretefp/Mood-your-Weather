@@ -14,16 +14,18 @@ struct SummaryView: View {
     
     
     var body: some View {
-        ForEach(viewModel.moods) {
-            mood in
-            HStack {
-                EmojiButton(emoji: mood)
-                VStack(alignment: .center) {
-                    GrowingBarView(value: 10)
-                        .padding(.top)
+        VStack {
+            ForEach(viewModel.moods) {
+                mood in
+                HStack {
+                    EmojiButton(emoji: mood)
+                    VStack(alignment: .center) {
+                        GrowingBarView(value: 10)
+                            .padding(.top)
+                    }
                 }
+                .frame(height: 60)
             }
-            .frame(height: 60)
         }
     }
 }
