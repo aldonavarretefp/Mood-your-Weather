@@ -44,4 +44,15 @@ class HomeViewModel: ObservableObject {
         }
         return true
     }
+    
+    func snapshot<Content: View>(_ view: Content, asImageWithScale scale: CGFloat = 1.0) -> UIImage {
+        let controller = UIHostingController(rootView: view.background(.clear))
+        
+        // Transparent background
+        controller.view.backgroundColor = .clear
+        
+        let viewSize = controller.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .defaultHigh)
+        controller.view.bounds = CGRect(origin: .zero, size: CGSize(width: viewSize.width, height: viewSize.height + 60))
+        return controller.view.asImage()
+    }
 }

@@ -27,6 +27,8 @@
 		F7DAB96C2AE1ACF600DE85F4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAB96B2AE1ACF600DE85F4 /* Color.swift */; };
 		F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */; };
 		F7E4C6192AE851E90097B3DC /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C6182AE851E90097B3DC /* Register.swift */; };
+		F7E4C61B2AE883B30097B3DC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C61A2AE883B30097B3DC /* UIView.swift */; };
+		F7E4C61D2AE883EC0097B3DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C61C2AE883EC0097B3DC /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		F7DAB96B2AE1ACF600DE85F4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		F7E4C6182AE851E90097B3DC /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		F7E4C61A2AE883B30097B3DC /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		F7E4C61C2AE883EC0097B3DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 			children = (
 				F7DAB96B2AE1ACF600DE85F4 /* Color.swift */,
 				F7224E072AE1CA08003303AD /* View.swift */,
+				F7E4C61A2AE883B30097B3DC /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -138,10 +143,11 @@
 				E6823CCA2AE1699C0042D675 /* EmojiButton.swift */,
 				F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */,
 				F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */,
+				A0F3D8232AE4376E002B8220 /* GrowingBarView.swift */,
+				F7E4C61C2AE883EC0097B3DC /* HomeView.swift */,
 				E6B501B92AE41A09007C9617 /* OnboardingView.swift */,
 				E62164A22AE0326C000AD82C /* SummaryView.swift */,
 				F7BC7ADF2AE1D89F00F0096E /* SupportAlternative.swift */,
-				A0F3D8232AE4376E002B8220 /* GrowingBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,6 +244,8 @@
 				A0F3D8202AE43140002B8220 /* User.swift in Sources */,
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,
 				F7E4C6192AE851E90097B3DC /* Register.swift in Sources */,
+				F7E4C61D2AE883EC0097B3DC /* HomeView.swift in Sources */,
+				F7E4C61B2AE883B30097B3DC /* UIView.swift in Sources */,
 				F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */,
 				F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */,
 				E6823CC92AE169070042D675 /* HomeViewModel.swift in Sources */,
