@@ -12,7 +12,6 @@ struct SummaryView: View {
     @EnvironmentObject private var userDataModel : UserDataModel
     @StateObject private var viewModel = HomeViewModel()
     
-    
     var body: some View {
         VStack {
             ForEach(viewModel.moods) {
@@ -23,10 +22,15 @@ struct SummaryView: View {
                         GrowingBarView(value: 10)
                             .padding(.top)
                     }
+                    Text("12")
+                        .bold()
                 }
                 .frame(height: 60)
+                
             }
+            Spacer()
         }
+        .padding()
     }
 }
 
