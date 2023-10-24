@@ -12,6 +12,13 @@ import SwiftData
 struct MoodYourWeatherApp: App {
     
     @StateObject private var userDataModel = UserDataModel()
+//    @StateObject private var summaryViewModel = SummaryViewModel()
+    
+    let container: ModelContainer = {
+        let schema = Schema([Register.self]);
+        let container = try! ModelContainer(for: schema, configurations: []);
+        return container;
+    }();
     
     init() {
         // Large and inline navigation title appereance.
@@ -23,6 +30,7 @@ struct MoodYourWeatherApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(userDataModel)
+                .modelContainer(container)
         }
     }
 }

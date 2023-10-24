@@ -26,6 +26,7 @@
 		F7DAB9682AE1A17B00DE85F4 /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */; };
 		F7DAB96C2AE1ACF600DE85F4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAB96B2AE1ACF600DE85F4 /* Color.swift */; };
 		F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */; };
+		F7E4C6192AE851E90097B3DC /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C6182AE851E90097B3DC /* Register.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		F7DAB9672AE1A17B00DE85F4 /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		F7DAB96B2AE1ACF600DE85F4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F7E46C8F2AE172DF00A0176B /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
+		F7E4C6182AE851E90097B3DC /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				A0F3D81F2AE43140002B8220 /* User.swift */,
 				E6823CC62AE168ED0042D675 /* Mood.swift */,
+				F7E4C6182AE851E90097B3DC /* Register.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				A0F3D8222AE43155002B8220 /* UserDataModel.swift in Sources */,
 				A0F3D8202AE43140002B8220 /* User.swift in Sources */,
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,
+				F7E4C6192AE851E90097B3DC /* Register.swift in Sources */,
 				F7E46C902AE172DF00A0176B /* EmojiPickerView.swift in Sources */,
 				F7D59D832AE02FB0009F93A1 /* MoodYourWeatherApp.swift in Sources */,
 				E6823CC92AE169070042D675 /* HomeViewModel.swift in Sources */,

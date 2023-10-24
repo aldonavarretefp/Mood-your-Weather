@@ -18,6 +18,7 @@ struct Canvas: View {
             RoundedRectangle(cornerRadius: 30)
                 .foregroundColor(.canvasColor)
                 .overlay {
+                    // Border of the canvas.
                     RoundedRectangle(cornerRadius: 30)
                         .strokeBorder(lineWidth: 2, antialiased: true)
                         .foregroundColor(.accentColor)

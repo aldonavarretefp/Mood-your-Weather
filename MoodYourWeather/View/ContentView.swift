@@ -6,31 +6,19 @@
 //
 
 import SwiftUI
-
-struct Register: Identifiable, Hashable {
-    var id: UUID = UUID()
-    let emojis: [String]
-    let snapshot: UIImage
-    let date: Date
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-}
+import SwiftData
 
 struct ContentView: View {
-    
+    @Environment(\.modelContext) var context
     // Model
-    @StateObject private var viewModel = HomeViewModel()
-    
+    @StateObject private var homeViewModel = HomeViewModel()
     // State variables
     @State private var isTargeted = false
     @State private var canvasImage: UIImage? = nil
     @State private var path: [Register] = []
     @State private var isAlertPresented: Bool = false
+    @State private var savedAlert: Bool = false
     @State private var showOnboarding = true
-
     
     var body: some View {
         VStack {
@@ -39,19 +27,19 @@ struct ContentView: View {
                     VStack {
                         instructionsText
                         HStack {
-                            Canvas(viewModel: viewModel)
+                            Canvas(viewModel: homeViewModel)
                                 .onDrop(
                                     of: ["public.text"],
                                     isTargeted: $isTargeted,
-                                    perform: viewModel.dropLogic
+                                    perform: homeViewModel.dropLogic
                                 )
                                 
                             Spacer()
-                            EmojiPickerView(viewModel: viewModel)
+                            EmojiPickerView(viewModel: homeViewModel)
                             Spacer()
                         }
                         Spacer()
-                        if !viewModel.emojisInCanvas.isEmpty {
+                        if !homeViewModel.emojisInCanvas.isEmpty {
                             resetButton
                                 .transition(.opacity)
                         }
@@ -59,11 +47,16 @@ struct ContentView: View {
                     }
                     .navigationTitle("Mood Your Weather")
                     .navigationDestination(for: Register.self) { register in
-                        SupportAlternative(path: $path, register: register)
+                        SupportAlternative(path: $path, register: register, savedAlert: $savedAlert)
+                            .environmentObject(homeViewModel)
+
                     }
                     .padding()
                     .alert(isPresented: $isAlertPresented) {
                         Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
+                    }
+                    .alert(isPresented: $savedAlert) {
+                        Alert(title: Text("Tracking saved!"))
                     }
                 }
                 .tabItem { Label("Mood your weather", systemImage: "cloud") }
@@ -78,7 +71,13 @@ struct ContentView: View {
         
     
     func snapshot<Content: View>(_ view: Content, asImageWithScale scale: CGFloat = 1.0) -> UIImage {
-        let controller = UIHostingController(rootView: view)
+        let clearBackground = Color.clear.background
+            
+        let controller = UIHostingController(rootView: view.background(.clear))
+        
+        // Transparent background
+        controller.view.backgroundColor = .clear
+        
         let viewSize = controller.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .defaultHigh)
         controller.view.bounds = CGRect(origin: .zero, size: CGSize(width: viewSize.width, height: viewSize.height + 60))
         return controller.view.asImage()
@@ -97,8 +96,8 @@ extension ContentView {
     private var resetButton: some View {
         Button {
             withAnimation {
-                self.viewModel.emojisInCanvas = []
-                self.viewModel.emojisInCanvasSet = Set()
+                self.homeViewModel.emojisInCanvas = []
+                self.homeViewModel.emojisInCanvasSet = Set()
             }
         } label: {
             Text("Reset")
@@ -109,17 +108,17 @@ extension ContentView {
     
     private var doneButtonView: some View {
         Button {
-            if viewModel.emojisInCanvas.isEmpty {
+            if homeViewModel.emojisInCanvas.isEmpty {
                 self.isAlertPresented = true
                 return
             }
             DispatchQueue.main.async {
-                canvasImage = snapshot(Canvas(viewModel: viewModel))
+                canvasImage = snapshot(Canvas(viewModel: homeViewModel))
                 guard let canvasImage else {
                     print("ERROR: Couldn't generate image from canvas.")
                     return
                 }
-                let newRegister: Register = .init(emojis: Array(viewModel.emojisInCanvasSet), snapshot: canvasImage, date: .now)
+                let newRegister: Register = .init(emojis: Array(homeViewModel.emojisInCanvasSet), snapshot: canvasImage, date: .now)
                 path.append(newRegister)
             }
         } label: {
