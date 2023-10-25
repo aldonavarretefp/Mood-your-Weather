@@ -22,24 +22,39 @@ struct OnboardingView: View {
             
             VStack{
                 Text("Mood \n your \n weather")
-                    .font(.largeTitle)
+                    .font(.system(size: 60))
                     .bold()
                     .foregroundStyle(.white)
                     .padding(.top, 100.0)
                     .multilineTextAlignment(.center)
-                    .lineSpacing(25)
+                    .lineSpacing(15)
                 Spacer()
-                Image(.cloud)
-                    .resizable()
-                    .frame(height: 330)
-                    .offset(x:offset, y: 0)
-                    .opacity(opacity)
-                    .onAppear() {
-                        withAnimation(.easeInOut(duration: 4.0).delay(1.0)) {
-                            offset = UIScreen.main.bounds.width
-                            opacity=0
+                ZStack {
+                    Image(.cloud)
+                        .resizable()
+                        .frame(height: 330)
+                        .offset(x:-offset, y: -100)
+                        .opacity(opacity)
+                        .onAppear() {
+                            withAnimation(.easeInOut(duration: 1.0).delay(1.8).repeatForever(autoreverses: true)) {
+                                offset = UIScreen.main.bounds.width
+                                opacity=0.5
                             }
                         }
+                    Image(.cloud)
+                        .resizable()
+                        .frame(height: 330)
+                        .offset(x:offset, y: 0)
+                        .opacity(opacity)
+                        .onAppear() {
+                            withAnimation(.easeInOut(duration: 6.0).delay(0.5).repeatForever(autoreverses: true)) {
+                                offset = UIScreen.main.bounds.width
+                                opacity=0.5
+                            }
+                        }
+                }
+                
+                
                 Text("Tap to continue")
                     .padding()
                     .font(.title2)
@@ -59,7 +74,7 @@ struct OnboardingView: View {
         })
     }
 }
-       
+
 #Preview {
     OnboardingView(showOnboarding: .constant(true))
 }
