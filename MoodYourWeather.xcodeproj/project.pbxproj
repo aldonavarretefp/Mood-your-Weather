@@ -72,6 +72,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F7414A462AE997D600EAFD65 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A094BB562AE9492E00F1E764 /* tips.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		F7D59D762AE02FB0009F93A1 = {
 			isa = PBXGroup;
 			children = (
@@ -91,13 +99,14 @@
 		F7D59D812AE02FB0009F93A1 /* MoodYourWeather */ = {
 			isa = PBXGroup;
 			children = (
-				F7DAB9692AE1ACDF00DE85F4 /* Utils */,
-				F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */,
-				F7E46C922AE1748300A0176B /* View */,
-				F7E46C912AE1746100A0176B /* Model */,
-				F7E46C932AE174F400A0176B /* ViewModel */,
 				F7D59D882AE02FB1009F93A1 /* Assets.xcassets */,
+				F7414A462AE997D600EAFD65 /* Data */,
+				F7E46C912AE1746100A0176B /* Model */,
+				F7D59D822AE02FB0009F93A1 /* MoodYourWeatherApp.swift */,
 				F7D59D8A2AE02FB1009F93A1 /* Preview Content */,
+				F7DAB9692AE1ACDF00DE85F4 /* Utils */,
+				F7E46C922AE1748300A0176B /* View */,
+				F7E46C932AE174F400A0176B /* ViewModel */,
 			);
 			path = MoodYourWeather;
 			sourceTree = "<group>";
@@ -113,9 +122,9 @@
 		F7DAB9692AE1ACDF00DE85F4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				F7DAB96A2AE1ACED00DE85F4 /* Extensions */,
 				F7E4C61F2AE887FC0097B3DC /* Constants.swift */,
 				A094BB582AE9496900F1E764 /* DataManager.swift */,
+				F7DAB96A2AE1ACED00DE85F4 /* Extensions */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -124,8 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				F7DAB96B2AE1ACF600DE85F4 /* Color.swift */,
-				F7224E072AE1CA08003303AD /* View.swift */,
 				F7E4C61A2AE883B30097B3DC /* UIView.swift */,
+				F7224E072AE1CA08003303AD /* View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -143,7 +152,6 @@
 		F7E46C922AE1748300A0176B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A094BB562AE9492E00F1E764 /* tips.json */,
 				F7DAB9652AE1822500DE85F4 /* Canvas.swift */,
 				F7D59D842AE02FB0009F93A1 /* ContentView.swift */,
 				E6823CCA2AE1699C0042D675 /* EmojiButton.swift */,
