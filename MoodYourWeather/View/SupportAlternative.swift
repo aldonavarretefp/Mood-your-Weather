@@ -45,7 +45,11 @@ struct SupportAlternative: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                        
+                    if !(register.emojis.count == 1){
+                        Text(Constants.emojisDescription[pickerSelection] ?? "")
+                            .padding(.bottom)
+                            
+                    }
                     Tip(register: register, tips: self.tips)
                     Spacer()
                     Button {
@@ -103,7 +107,7 @@ struct Tip : View {
     Group {
         SupportAlternative(path: .constant([
             .init(emojis: ["🍎"], snapshot: UIImage(), date: Date())
-        ]), register: .init(emojis: ["🌧️","☀️", ], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
+        ]), register: .init(emojis: ["🌧️","☀️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
 //        ContentView()
     }
     
