@@ -11,16 +11,16 @@ struct GrowingBarView: View {
     
     var value : Int
     var animationDuration: Double = 0.5 // Animation duration in seconds
-    let heightOfBar: CGFloat = 25
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
                     .fill(.blue.opacity(0.3))
-                    .frame(width: geometry.size.width, height: heightOfBar)
+                    .frame(width: geometry.size.width)
                 
                 Rectangle()
-                    .frame(width: self.calculateWidth(geometry: geometry), height: heightOfBar)
+                    .frame(width: self.calculateWidth(geometry: geometry))
                     .foregroundStyle(.blue)
                     .modifier(BarAnimationModifier(duration: animationDuration))
             }
@@ -50,7 +50,7 @@ struct BarAnimationModifier: AnimatableModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: width, alignment: .leading)
-            .animation(.linear(duration: duration))
+            .transition(.slide.animation(.easeIn(duration: 3)))
     }
 }
 

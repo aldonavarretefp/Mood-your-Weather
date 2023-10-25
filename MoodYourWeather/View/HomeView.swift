@@ -16,11 +16,9 @@ struct HomeView: View {
     @State private var path: [Register] = []
     @State private var isAlertPresented: Bool = false
     @State private var savedAlert: Bool = false
-    
-    
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            VStack(spacing: 30) {
                 instructionsText
                 HStack {
                     Canvas()
@@ -30,10 +28,15 @@ struct HomeView: View {
                     Spacer()
                 }
                 Spacer()
-                if !homeViewModel.emojisInCanvas.isEmpty {
-                    resetButton
+                VStack {
+                    if !homeViewModel.emojisInCanvas.isEmpty {
+                        resetButton
+                    }
+                    doneButtonView
+                        .alert(isPresented: $isAlertPresented) {
+                            Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
+                        }
                 }
-                doneButtonView
             }
             .navigationTitle("Mood Your Weather")
             .navigationDestination(for: Register.self) { register in
@@ -41,9 +44,7 @@ struct HomeView: View {
                     .environmentObject(homeViewModel)
             }
             .padding()
-            .alert(isPresented: $isAlertPresented) {
-                Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
-            }
+            
             .alert(isPresented: $savedAlert) {
                 Alert(title: Text("Tracking saved!"))
             }
@@ -69,11 +70,13 @@ extension HomeView {
     
     private var doneButtonView: some View {
         Button {
-            if homeViewModel.emojisInCanvas.isEmpty {
-                self.isAlertPresented = true
-                return
-            }
             DispatchQueue.main.async {
+                print(homeViewModel.emojisInCanvas, homeViewModel.emojisInCanvasSet)
+                if homeViewModel.emojisInCanvas.count == 0 {
+                    isAlertPresented = true
+                    return
+                }
+               
                 canvasImage = homeViewModel.snapshot(Canvas().environmentObject(homeViewModel))
                 guard let canvasImage else {
                     print("ERROR: Couldn't generate image from canvas.")

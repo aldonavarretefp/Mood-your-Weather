@@ -58,22 +58,23 @@ struct OnboardingView: View {
                         }
                 }
                 
-                
-                Text("Tap to continue")
-                    .padding()
-                    .font(.title2)
-                    .bold()
-                    .foregroundStyle(.white)
-                    .opacity(0.6)
-                    .scaleEffect(bounceSize)
-                    .onAppear(){
-                        withAnimation(Animation.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
-                            bounceSize = 1.15
+                if isShowingText {
+                    Text("Tap to continue")
+                        .padding()
+                        .font(.title2)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .opacity(0.6)
+                        .scaleEffect(bounceSize)
+                        .onAppear(){
+                            withAnimation(Animation.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
+                                bounceSize = 1.15
+                            }
                         }
-                    }
+                }
             }
         }
-        .onAppear(){
+        .onAppear() {
                 Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
                     withAnimation {
                         self.isShowingText = true
@@ -82,7 +83,9 @@ struct OnboardingView: View {
                 }
             }
         .onTapGesture(perform: {
-            showOnboarding.toggle()
+            if (isShowingText) {
+                showOnboarding.toggle()
+            }
         })
     }
 }

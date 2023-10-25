@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EmojiButton: View {
     var emoji : Mood
+    var hasBackground: Bool = true
     var body: some View {
         ZStack {
             Text(emoji.emoji)
@@ -16,11 +17,10 @@ struct EmojiButton: View {
                 .onDrag {
                     NSItemProvider(object: emoji.emoji as NSString)
                 }
-                
         }
         .padding(.horizontal, 25)
         .padding(.vertical, 9)
-        .background(Color(.systemGray5))
+        .background( hasBackground ? Color(.systemGray5) : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         
         
@@ -28,5 +28,5 @@ struct EmojiButton: View {
 }
 
 #Preview {
-    EmojiButton(emoji: Mood(name: "Prova", emoji: "❤️"))
+    EmojiButton(emoji: Mood(name: "Prova", emoji: "❤️"), hasBackground: false)
 }
