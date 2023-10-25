@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct SupportAlternative: View {
     let register: Register?
     @EnvironmentObject private var homeViewModel: HomeViewModel
@@ -16,6 +14,9 @@ struct SupportAlternative: View {
     @State private var pickerSelection: String = ""
     @Binding private var savedAlert: Bool
     @Environment(\.modelContext) private var context
+    
+    @State private var tips : Dictionary<String, String> = [:]
+    private let dataManager : DataManager = DataManager()
     
     init(path: Binding<[Register]>, register: Register, savedAlert: Binding<Bool>) {
         self._path = path
@@ -74,6 +75,11 @@ struct SupportAlternative: View {
                 .padding()
             }
             .navigationTitle("Support")
+            .onAppear() {
+                dataManager.fetchData { jsonTips in
+                    tips = jsonTips
+                }
+            }
         }
     }
 }
