@@ -33,10 +33,12 @@ struct SummaryView: View {
     @EnvironmentObject private var userDataModel : UserDataModel
     @StateObject private var homeViewModel = HomeViewModel()
     
-    @Query fileprivate var registers: [Register]
+    @Query(sort: \Register.date) private var registers: [Register]
     
     @State private var startDate = Date()
     @State private var endDate = Date()
+    @State private var customStartDate = Date()
+    @State private var customEndDate = Date()
     @State private var filteredRegisters: [Register] = []
     @State private var emojiCounts: Dictionary<String, Int> = [:]
     
@@ -44,80 +46,97 @@ struct SummaryView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Picker("Date Filter", selection: $selectedDateFilter) {
-                    ForEach(DateFilter.allCases, id: \.self) { filter in
-                        Text(filter.filterLabel).tag(filter)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 25) {
+                    Picker("Date Filter", selection: $selectedDateFilter) {
+                        ForEach(DateFilter.allCases, id: \.self) { filter in
+                            Text(filter.filterLabel).tag(filter)
+                        }
                     }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                if selectedDateFilter == .customDates {
-                    VStack {
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    if selectedDateFilter == .customDates {
                         HStack {
-                            Text("From:")
+                            Text("From")
                                 .bold()
                                 .font(.body)
-                            DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
+                                .foregroundStyle(.accent)
+                            DatePicker("Start Date", 
+                                       selection: $customStartDate,
+                                       in: ...customEndDate,
+                                       displayedComponents: [.date]
+                            )
+                                .datePickerStyle(.compact)
+                                .labelsHidden() // Hide the label if needed
+                            
+                            Spacer()
+                            Text("To")
+                                .bold()
+                                .font(.body)
+                                .foregroundStyle(.accent)
+                            DatePicker("End Date", 
+                                       selection: $customEndDate,
+                                       in: customStartDate...Date(),
+                                       displayedComponents: .date
+                            )
                                 .datePickerStyle(.compact)
                                 .labelsHidden() // Hide the label if needed
                         }
-                        HStack {
-                            Text("To:")
-                                .bold()
-                                .font(.body)
-                            DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
-                                .datePickerStyle(.compact)
-                                .labelsHidden() // Hide the label if needed
+                        
+                        
+                    }
+                    VStack(spacing: 30) {
+                        ForEach(homeViewModel.moods) {
+                            mood in
+                            let (value, emojiCount) = calculateBarValue(mood)
+                            HStack(alignment: .center) {
+                                EmojiButton(emoji: mood, hasBackground: false)
+                                VStack {
+                                    GrowingBarView(value: value)
+                                        .offset(x:-12.0)
+                                        .padding([.top, .bottom])
+                                }
+                                Text("\(emojiCount)")
+                                    .bold()
+                                    .font(.title3)
+                            }
+                            .frame(height: 60)
+                            .padding(.trailing, 10)
                         }
                     }
-                    
-                }
-                ForEach(homeViewModel.moods) {
-                    mood in
-                    let emojiCount = emojiCounts[mood.emoji] ?? 0
-                    let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
-                    let value = emojiCount * 100 / totalOfRegisters
-                    HStack {
-                        EmojiButton(emoji: mood)
-                        VStack(alignment: .center) {
-                            // 100 -> filteredRegisters.count
-                            // value -> emojisCount[emoji.emoji[
-                            GrowingBarView(value: value)
-                                .padding(.top)
-                        }
-                        Text("\(emojiCount)")
-                            .bold()
-                    }
-                    .frame(height: 60)
-                    
-                }
-                HStack {
-                    Text("Registers")
-                        .font(.largeTitle)
-                        .bold()
-                        .foregroundStyle(.accent)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                List {
-                    ForEach(filteredRegisters) { register in
-                        NavigationLink(register.date.formatted(date: .long, time: .omitted), destination: RegisterDetailView(register: register)
-                            .environmentObject(homeViewModel)
-                        )
+                    .padding()
+                    .background(.gray.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                    NavigationLink(destination: RegistersView(registers: filteredRegisters)) {
+                        Text("View registers")
+                            .buttonStyleModifier(.accentColor)
                     }
                 }
-                .listStyle(.grouped)
-                Spacer()
-                
-                
+                .padding()
+                .onAppear {
+                    filterRegisters()
+                }
+                .onChange(of: [selectedDateFilter]) { oldValue, newValue in
+                    withAnimation {
+                        filterRegisters()
+                    }
+                }
+                .onChange(of: [customStartDate, customEndDate], {
+                    withAnimation {
+                        filterRegisters()
+                    }
+                    
+                })
+                .navigationTitle("Summary")
             }
-            .padding()
-            .onAppear {
-                filterRegisters()
-            }
-            .onChange(of: [selectedDateFilter]) { oldValue, newValue in
-                filterRegisters()
         }
-        }
+    }
+    
+    private func calculateBarValue(_ mood: Mood) -> (Int, Int) {
+        let emojiCount = emojiCounts[mood.emoji] ?? 0
+        let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
+        let value = emojiCount * 100 / totalOfRegisters
+        return (value, emojiCount)
     }
     func filterRegisters () {
         emojiCounts = [:]
@@ -131,20 +150,23 @@ struct SummaryView: View {
             startDate = lastMonth
             endDate = Date()
         default:
-            break
+            startDate = customStartDate
+            endDate = customEndDate
         }
-        self.filteredRegisters = registers.filter { $0.date >= startDate && $0.date <= endDate }
+        self.filteredRegisters = registers.filter { $0.date >= startDate && $0.date <= endDate }.sorted(by:{ $0.date < $1.date } )
+        for reg in registers {
+            print(reg.date)
+        }
+        print("=======")
+        for reg in filteredRegisters {
+            print(reg.date)
+        }
         self.calculateEmojiCounts(for: filteredRegisters)
         
     }
-    func filterChanged(to newValue: DateFilter) {
-            selectedDateFilter = newValue
-            filterRegisters()
-        }
     func calculateEmojiCounts(for registers: [Register]) {
-        //        emojiCounts = Dictionary(uniqueKeysWithValues: filteredRegisters.map { ($0.emojis, 0) })
         for register in filteredRegisters {
-            print(register.emojis)
+            //            print(register.emojis)
             // Populate dictionary
             let emojis: [String] = register.emojis
             for emoji in emojis {
@@ -152,6 +174,24 @@ struct SummaryView: View {
             }
         }
         print(emojiCounts)
+    }
+    
+}
+
+struct RegistersView: View {
+    @Environment(\.modelContext) private var context
+    var registers: [Register]
+    var body: some View {
+        List {
+            ForEach(registers) { register in
+                Text(register.date.formatted()  )
+            }
+            .onDelete(perform: { indexSet in
+                for index in indexSet {
+                    context.delete(registers[index])
+                }
+            })
+        }
     }
 }
 
@@ -169,9 +209,9 @@ struct RegisterDetailView: View {
             }
             ForEach(homeViewModel.moods) {
                 mood in
-//                let emojiCount = emojiCounts[mood.emoji] ?? 0
-//                let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
-//                let value = emojiCount * 100 / totalOfRegisters
+                //                let emojiCount = emojiCounts[mood.emoji] ?? 0
+                //                let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
+                //                let value = emojiCount * 100 / totalOfRegisters
                 HStack {
                     EmojiButton(emoji: mood)
                     VStack(alignment: .center) {
