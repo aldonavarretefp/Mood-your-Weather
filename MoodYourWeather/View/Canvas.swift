@@ -15,14 +15,10 @@ struct Canvas: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(.canvasColor)
-                .overlay {
-                    // Border of the canvas.
-                    RoundedRectangle(cornerRadius: 30)
-                        .strokeBorder(lineWidth: 2, antialiased: true)
-                        .foregroundColor(.accentColor)
-                }
+            Image("landscape")
+                .resizable()
+                .cornerRadius(30)
+                .clipped()
             ForEach($homeViewModel.emojisInCanvas) { emoji in
                 EmojiView(emoji: emoji, canvasFrame: canvasFrame)
             }
