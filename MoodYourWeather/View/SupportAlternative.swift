@@ -45,10 +45,8 @@ struct SupportAlternative: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    if !(register.emojis.count == 1){
+                    if !(register.emojis.count == 1) {
                         Text(Constants.emojisDescription[pickerSelection] ?? "")
-                            .padding(.bottom)
-                            
                     }
                     Tip(register: register, tips: self.tips)
                     Spacer()
@@ -84,13 +82,11 @@ struct SupportAlternative: View {
 }
 
 struct Tip : View {
+    
     let register : Register?
     let tips : Dictionary<String, String>
     
-    
     var body : some View {
-        
-        
         // Checking every emoji combination in the dictionary, so that it can
         // print the description associated
         if let emojis = register?.emojis.sorted().joined(), let description = tips[emojis]?.description {
@@ -98,6 +94,7 @@ struct Tip : View {
                 .font(.italic(.body)())
                 .padding()
                 .background(.gray.opacity(0.1))
+                .foregroundStyle(.accent)
                 .border(width: 1.0, edges: [.leading], color: .accent)
         }
     }
