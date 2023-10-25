@@ -14,6 +14,7 @@ struct OnboardingView: View {
     @State private var bounceSize: CGFloat = 1
     @State private var offset: CGFloat = -UIScreen.main.bounds.width
     @State private var opacity: Double = 1
+    @State private var isShowingText = false
     
     var body: some View {
         ZStack{
@@ -21,13 +22,16 @@ struct OnboardingView: View {
                 .ignoresSafeArea()
             
             VStack{
-                Text("Mood \n your \n weather")
-                    .font(.system(size: 60))
-                    .bold()
-                    .foregroundStyle(.white)
-                    .padding(.top, 100.0)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(15)
+                if isShowingText {
+                    Text("Mood \n your \n weather")
+                        .font(.system(size: 60))
+                        .bold()
+                        .foregroundStyle(.white)
+                        .padding(.top, 100.0)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(15)
+                }
+                
                 Spacer()
                 ZStack {
                     Image(.cloud)
@@ -69,6 +73,14 @@ struct OnboardingView: View {
                     }
             }
         }
+        .onAppear(){
+                Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
+                    withAnimation {
+                        self.isShowingText = true
+                    }
+                    
+                }
+            }
         .onTapGesture(perform: {
             showOnboarding.toggle()
         })
