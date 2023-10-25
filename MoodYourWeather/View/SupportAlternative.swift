@@ -45,13 +45,8 @@ struct SupportAlternative: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    
-                    Text(Constants.emojisDescription[pickerSelection] ?? "")
-                        .font(.italic(.body)())
-                        .padding()
-                        .background(.gray.opacity(0.1))
-                        .border(width: 1.0, edges: [.leading], color: .accent)
                         
+                    Tip(register: register, tips: self.tips)
                     Spacer()
                     Button {
                         // Saving the container (DB in SwiftData)
@@ -84,11 +79,31 @@ struct SupportAlternative: View {
     }
 }
 
+struct Tip : View {
+    let register : Register?
+    let tips : Dictionary<String, String>
+    
+    
+    var body : some View {
+        
+        
+        // Checking every emoji combination in the dictionary, so that it can
+        // print the description associated
+        if let emojis = register?.emojis.sorted().joined(), let description = tips[emojis]?.description {
+            Text(description)
+                .font(.italic(.body)())
+                .padding()
+                .background(.gray.opacity(0.1))
+                .border(width: 1.0, edges: [.leading], color: .accent)
+        }
+    }
+}
+
 #Preview {
     Group {
         SupportAlternative(path: .constant([
             .init(emojis: ["🍎"], snapshot: UIImage(), date: Date())
-        ]), register: .init(emojis: ["☀️","🌪️","🌧️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
+        ]), register: .init(emojis: ["🌧️","☀️", ], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
 //        ContentView()
     }
     
