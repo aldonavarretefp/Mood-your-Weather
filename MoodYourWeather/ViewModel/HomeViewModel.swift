@@ -11,7 +11,7 @@ class HomeViewModel: ObservableObject {
         Mood(name: "Sun", emoji: "☀️"),
         Mood(name: "Rainbow", emoji: "🌈"),
         Mood(name: "Cloudy", emoji: "⛅️"),
-        Mood(name: "Rainy", emoji: "🌦️"),
+        Mood(name: "Rainy", emoji: "🌧️"),
         Mood(name: "Tornado", emoji: "🌪️")
     ]
     @Published var emojisInCanvas: Array<Mood> = []

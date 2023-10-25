@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct SupportAlternative: View {
     let register: Register?
     @EnvironmentObject private var homeViewModel: HomeViewModel
@@ -33,7 +35,6 @@ struct SupportAlternative: View {
                             .scaledToFit()
                             .clipped()
                             .frame(width: 300)
-                            .border(.blue)
                     }
                     Picker("", selection: $pickerSelection) {
                         ForEach(0..<register.emojis.count, id: \.self) { index in
@@ -43,6 +44,7 @@ struct SupportAlternative: View {
                     }
                     .pickerStyle(.segmented)
                     .padding(.top, 25)
+                    Text(Constants.emojisDescription[pickerSelection] ?? "")
                     Spacer()
                     Button {
                         // Saving the container (DB in SwiftData)
@@ -58,16 +60,12 @@ struct SupportAlternative: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                             savedAlert = true;
                         }
-                        
-                        
                     } label: {
                         Text("Save")
                             .buttonStyleModifier(.accent)
-                        
                     }
                 }
                 .padding()
-                
             }
             .navigationTitle("Support")
         }

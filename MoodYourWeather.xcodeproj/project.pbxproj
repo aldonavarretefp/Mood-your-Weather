@@ -29,6 +29,7 @@
 		F7E4C6192AE851E90097B3DC /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C6182AE851E90097B3DC /* Register.swift */; };
 		F7E4C61B2AE883B30097B3DC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C61A2AE883B30097B3DC /* UIView.swift */; };
 		F7E4C61D2AE883EC0097B3DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C61C2AE883EC0097B3DC /* HomeView.swift */; };
+		F7E4C6202AE887FC0097B3DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4C61F2AE887FC0097B3DC /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		F7E4C6182AE851E90097B3DC /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		F7E4C61A2AE883B30097B3DC /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		F7E4C61C2AE883EC0097B3DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F7E4C61F2AE887FC0097B3DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				F7DAB96A2AE1ACED00DE85F4 /* Extensions */,
+				F7E4C61F2AE887FC0097B3DC /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				A0F3D8242AE4376E002B8220 /* GrowingBarView.swift in Sources */,
 				A0F3D8222AE43155002B8220 /* UserDataModel.swift in Sources */,
 				A0F3D8202AE43140002B8220 /* User.swift in Sources */,
+				F7E4C6202AE887FC0097B3DC /* Constants.swift in Sources */,
 				E62164A32AE0326C000AD82C /* SummaryView.swift in Sources */,
 				F7E4C6192AE851E90097B3DC /* Register.swift in Sources */,
 				F7E4C61D2AE883EC0097B3DC /* HomeView.swift in Sources */,
