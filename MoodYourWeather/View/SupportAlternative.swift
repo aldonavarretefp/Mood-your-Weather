@@ -27,7 +27,7 @@ struct SupportAlternative: View {
     var body: some View {
         if let register {
             ScrollView {
-                VStack {
+                VStack(spacing: 25) {
                     if let snapshot = register.snapshot, let uiImage = UIImage(data: snapshot)  {
                         Image(uiImage: uiImage)
                             .resizable()
@@ -35,6 +35,7 @@ struct SupportAlternative: View {
                             .scaledToFit()
                             .clipped()
                             .frame(width: 300)
+                            .padding(.bottom, -55)
                     }
                     Picker("", selection: $pickerSelection) {
                         ForEach(0..<register.emojis.count, id: \.self) { index in
@@ -43,8 +44,13 @@ struct SupportAlternative: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    .padding(.top, 25)
+                    
                     Text(Constants.emojisDescription[pickerSelection] ?? "")
+                        .font(.italic(.body)())
+                        .padding()
+                        .background(.gray.opacity(0.1))
+                        .border(width: 1.0, edges: [.leading], color: .accent)
+                        
                     Spacer()
                     Button {
                         // Saving the container (DB in SwiftData)
@@ -73,7 +79,11 @@ struct SupportAlternative: View {
 }
 
 #Preview {
-    SupportAlternative(path: .constant([
-        .init(emojis: ["🍎"], snapshot: UIImage(), date: Date())
-    ]), register: .init(emojis: ["☀️","🌪️","🌧️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
+    Group {
+        SupportAlternative(path: .constant([
+            .init(emojis: ["🍎"], snapshot: UIImage(), date: Date())
+        ]), register: .init(emojis: ["☀️","🌪️","🌧️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
+//        ContentView()
+    }
+    
 }
