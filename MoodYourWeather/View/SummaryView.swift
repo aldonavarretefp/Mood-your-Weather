@@ -8,10 +8,6 @@
 import SwiftUI
 import SwiftData
 
-//class SummaryViewModel: ObservableObject {
-//    @Query fileprivate var registers: [Register]
-//}
-
 struct SummaryView: View {
     
     enum DateFilter: Int, CaseIterable {
@@ -43,6 +39,8 @@ struct SummaryView: View {
     @State private var emojiCounts: Dictionary<String, Int> = [:]
     
     @State private var selectedDateFilter: DateFilter = .last7Days
+    private var dataManager = DataManager()
+    @State private var tips: Dictionary<String, String> = [:]
     
     var body: some View {
         NavigationStack {
@@ -61,26 +59,25 @@ struct SummaryView: View {
                                 .bold()
                                 .font(.body)
                                 .foregroundStyle(.accent)
-                            DatePicker("Start Date", 
+                            DatePicker("Start Date",
                                        selection: $customStartDate,
                                        in: ...customEndDate,
                                        displayedComponents: [.date]
                             )
-                                .datePickerStyle(.compact)
-                                .labelsHidden() // Hide the label if needed
-                            
+                            .datePickerStyle(.compact)
+                            .labelsHidden()
                             Spacer()
                             Text("To")
                                 .bold()
                                 .font(.body)
                                 .foregroundStyle(.accent)
-                            DatePicker("End Date", 
+                            DatePicker("End Date",
                                        selection: $customEndDate,
                                        in: customStartDate...Date(),
                                        displayedComponents: .date
                             )
-                                .datePickerStyle(.compact)
-                                .labelsHidden() // Hide the label if needed
+                            .datePickerStyle(.compact)
+                            .labelsHidden()
                         }
                         
                         
@@ -107,7 +104,10 @@ struct SummaryView: View {
                     .padding()
                     .background(.gray.opacity(0.1))
                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                    NavigationLink(destination: RegistersView(registers: filteredRegisters)) {
+                    NavigationLink(destination:
+                                    RegistersView(registers: filteredRegisters, tips: tips)
+                        .environmentObject(homeViewModel)
+                    ) {
                         Text("View registers")
                             .buttonStyleModifier(.accentColor)
                     }
@@ -115,6 +115,9 @@ struct SummaryView: View {
                 .padding()
                 .onAppear {
                     filterRegisters()
+                    dataManager.fetchData { jsonTips in
+                        self.tips = jsonTips
+                    }
                 }
                 .onChange(of: [selectedDateFilter]) { oldValue, newValue in
                     withAnimation {
@@ -128,6 +131,7 @@ struct SummaryView: View {
                     
                 })
                 .navigationTitle("Summary")
+                
             }
         }
     }
@@ -154,13 +158,6 @@ struct SummaryView: View {
             endDate = customEndDate
         }
         self.filteredRegisters = registers.filter { $0.date >= startDate && $0.date <= endDate }.sorted(by:{ $0.date < $1.date } )
-        for reg in registers {
-            print(reg.date)
-        }
-        print("=======")
-        for reg in filteredRegisters {
-            print(reg.date)
-        }
         self.calculateEmojiCounts(for: filteredRegisters)
         
     }
@@ -178,58 +175,24 @@ struct SummaryView: View {
     
 }
 
-struct RegistersView: View {
-    @Environment(\.modelContext) private var context
-    var registers: [Register]
-    var body: some View {
-        List {
-            ForEach(registers) { register in
-                Text(register.date.formatted()  )
-            }
-            .onDelete(perform: { indexSet in
-                for index in indexSet {
-                    context.delete(registers[index])
-                }
-            })
-        }
-    }
-}
-
 struct RegisterDetailView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     var register: Register
+    var tips: Dictionary<String, String>
+    
+    private let formatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        return dateFormatter
+    }()
     var body: some View {
         VStack {
-            if let snapshot = register.snapshot, let uiImage = UIImage(data: snapshot) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 300)
-                    .shadow(radius: 2)
-            }
-            ForEach(homeViewModel.moods) {
-                mood in
-                //                let emojiCount = emojiCounts[mood.emoji] ?? 0
-                //                let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
-                //                let value = emojiCount * 100 / totalOfRegisters
-                HStack {
-                    EmojiButton(emoji: mood)
-                    VStack(alignment: .center) {
-                        // 100 -> filteredRegisters.count
-                        // value -> emojisCount[emoji.emoji[
-                        GrowingBarView(value: 10)
-                            .padding(.top)
-                    }
-                    Text("\(10)")
-                        .bold()
-                }
-                .frame(height: 60)
-                
-            }
-            
+            RegisterSummaryView(register: register, tips: tips)
         }
-        .navigationTitle("Recap on \(register.date.formatted())")
+        .padding()
+        .navigationTitle("\(formatter.string(from: register.date))")
     }
+    
 }
 
 #Preview {
