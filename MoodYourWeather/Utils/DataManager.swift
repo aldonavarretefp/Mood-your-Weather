@@ -31,7 +31,12 @@ class DataManager {
             do {
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode(Dictionary<String, String>.self, from: jsonData)
-                completion(decodedData)
+                
+                // Sort the dictionary by keys
+                let sortedData = decodedData.sorted(by: { $0.key < $1.key })
+                let sortedDictionary = Dictionary(uniqueKeysWithValues: sortedData)
+                
+                completion(sortedDictionary)
             } catch {
                 print(String(describing: error))
                 completion([:])
