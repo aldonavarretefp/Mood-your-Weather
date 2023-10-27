@@ -14,6 +14,13 @@ class HomeViewModel: ObservableObject {
         Mood(name: "Rainy", emoji: "🌧️"),
         Mood(name: "Tornado", emoji: "🌪️")
     ]
+    @Published var originalMoods : [Mood] = [
+        Mood(name: "Sun", emoji: "☀️"),
+        Mood(name: "Rainbow", emoji: "🌈"),
+        Mood(name: "Cloudy", emoji: "⛅️"),
+        Mood(name: "Rainy", emoji: "🌧️"),
+        Mood(name: "Tornado", emoji: "🌪️")
+    ]
     @Published var emojisInCanvas: Array<Mood> = []
     @Published var emojisInCanvasSet: Set<String> = Set()
     
@@ -33,12 +40,14 @@ class HomeViewModel: ObservableObject {
              * to compare
              */
             DispatchQueue.main.async {
-                let emoji = Mood(name: "asdas", emoji: text, position: position)
                 withAnimation {
+                    let emoji = Mood(name: "asdas", emoji: text, position: position)
+                    self.moods = self.moods.filter({$0.emoji != emoji.emoji })
                     self.emojisInCanvas.append(emoji)
+                    self.emojisInCanvasSet.insert(emoji.emoji)
+                    print(location, self.emojisInCanvasSet)
+                    
                 }
-                self.emojisInCanvasSet.insert(emoji.emoji)
-                print(location, self.emojisInCanvasSet)
             }
             
         }
@@ -54,5 +63,11 @@ class HomeViewModel: ObservableObject {
         let viewSize = controller.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .defaultHigh)
         controller.view.bounds = CGRect(origin: .zero, size: CGSize(width: viewSize.width, height: viewSize.height + 60))
         return controller.view.asImage()
+    }
+    
+    func resetHomeView() {
+        self.emojisInCanvas = []
+        self.emojisInCanvasSet = Set()
+        self.moods = self.originalMoods
     }
 }

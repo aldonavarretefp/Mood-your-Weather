@@ -31,35 +31,44 @@ struct RegistersView: View {
     }
     
     init(registers: [Register], tips: Dictionary<String, String>) {
-        print(tips)
-        print("=========")
         self.registers = registers
         self.tips = tips
     }
     
     var body: some View {
-        List {
-            ForEach(groupedRegisters, id: \.self) { groupedRegister in
-                Section(header:
-                            Text(groupedRegister.month)
-                    .font(.largeTitle)
-                ) {
-                    ForEach(groupedRegister.registers) { register in
-                        NavigationLink(register.emojis.joined(separator: ""), destination:
-                                        RegisterDetailView(register: register, tips: tips)
-                            .environmentObject(homeViewModel)
-                        )
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                ForEach(groupedRegisters, id: \.self) { groupedRegister in
+                    Text(groupedRegister.month)
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundStyle(.accent)
+                    ScrollView(.horizontal) {
+                        LazyHStack(spacing: 12,content: {
+                            ForEach(groupedRegister.registers) {
+                                RegisterCard(register: $0, tips: tips)
+                                    .frame(width: 110)
+                            }
+                        })
                     }
-                    .onDelete(perform: { indexSet in
-                        for index in indexSet {
-                            context.delete(registers[index])
-                        }
-                    })
+                    .scrollIndicators(.hidden)
+                    
                 }
             }
+            .padding()
         }
     }
-    
-    
 }
 
+#Preview {
+    RegistersView(registers: [
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+        .init(emojis: [], snapshot: UIImage(named: "background")!, date: .now),
+    ], tips: [:])
+}

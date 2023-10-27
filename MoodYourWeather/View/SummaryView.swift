@@ -79,8 +79,6 @@ struct SummaryView: View {
                             .datePickerStyle(.compact)
                             .labelsHidden()
                         }
-                        
-                        
                     }
                     VStack(spacing: 30) {
                         ForEach(homeViewModel.moods) {
@@ -112,7 +110,6 @@ struct SummaryView: View {
                             .buttonStyleModifier(.accentColor)
                     }
                 }
-                .padding()
                 .onAppear {
                     filterRegisters()
                     dataManager.fetchData { jsonTips in
@@ -130,9 +127,9 @@ struct SummaryView: View {
                     }
                     
                 })
-                .navigationTitle("Summary")
-                
             }
+            .padding()
+            .navigationTitle("Summary")
         }
     }
     
@@ -171,26 +168,6 @@ struct SummaryView: View {
             }
         }
         print(emojiCounts)
-    }
-    
-}
-
-struct RegisterDetailView: View {
-    @EnvironmentObject private var homeViewModel: HomeViewModel
-    var register: Register
-    var tips: Dictionary<String, String>
-    
-    private let formatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-        return dateFormatter
-    }()
-    var body: some View {
-        VStack {
-            RegisterSummaryView(register: register, tips: tips)
-        }
-        .padding()
-        .navigationTitle("\(formatter.string(from: register.date))")
     }
     
 }

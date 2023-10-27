@@ -22,6 +22,7 @@ struct HomeView: View {
                 instructionsText
                 HStack {
                     Canvas()
+                        .shadow(radius: 10)
                         .environmentObject(homeViewModel)
                     Spacer()
                     EmojiPickerView(viewModel: homeViewModel)
@@ -38,13 +39,12 @@ struct HomeView: View {
                         }
                 }
             }
+            .padding()
             .navigationTitle("Mood Your Weather")
             .navigationDestination(for: Register.self) { register in
                 SupportAlternative(path: $path, register: register, savedAlert: $savedAlert)
                     .environmentObject(homeViewModel)
             }
-            .padding()
-            
             .alert(isPresented: $savedAlert) {
                 Alert(title: Text("Tracking saved!"))
             }
@@ -57,8 +57,7 @@ extension HomeView {
     private var resetButton: some View {
         Button {
             withAnimation {
-                self.homeViewModel.emojisInCanvas = []
-                self.homeViewModel.emojisInCanvasSet = Set()
+                homeViewModel.resetHomeView()
             }
         } label: {
             Text("Reset")
