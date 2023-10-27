@@ -83,9 +83,7 @@ struct OnboardingView: View {
                 }
             }
         .onTapGesture(perform: {
-            if (isShowingText) {
-                showOnboarding.toggle()
-            }
+            showOnboarding.toggle()
         })
     }
 }
