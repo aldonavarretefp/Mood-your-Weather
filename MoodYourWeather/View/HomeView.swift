@@ -70,12 +70,10 @@ extension HomeView {
     private var doneButtonView: some View {
         Button {
             DispatchQueue.main.async {
-                print(homeViewModel.emojisInCanvas, homeViewModel.emojisInCanvasSet)
-                if homeViewModel.emojisInCanvas.count == 0 {
+                if homeViewModel.emojisInCanvas.isEmpty {
                     isAlertPresented = true
                     return
                 }
-               
                 canvasImage = homeViewModel.snapshot(Canvas().environmentObject(homeViewModel))
                 guard let canvasImage else {
                     print("ERROR: Couldn't generate image from canvas.")

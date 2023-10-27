@@ -52,7 +52,6 @@ struct RegistersView: View {
                         })
                     }
                     .scrollIndicators(.hidden)
-                    
                 }
             }
             .padding()

@@ -36,6 +36,15 @@ struct SupportAlternative: View {
                         Text("Save")
                             .buttonStyleModifier(.accent)
                     }
+                    Button {
+                        let registers = generateMockData()
+                        for r in registers {
+                            context.insert(r)
+                        }
+                    } label: {
+                        Text("Mock Data")
+                            .buttonStyleModifier(.accent)
+                    }
                 }
                 .padding()
             }
@@ -52,9 +61,8 @@ struct SupportAlternative: View {
         context.insert(register) /// Save data in DB.
         self.homeViewModel.resetHomeView()
         path = [] /// Pop to root view
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            savedAlert = true; /// Asyncronously activating the saved alert because it should appear ~10ms after.
-        }
+        savedAlert = true; /// Asyncronously activating the saved alert because it should appear ~10ms after.
+        
     }
     func generateMockData() -> [Register] {
             var mockData: [Register] = []

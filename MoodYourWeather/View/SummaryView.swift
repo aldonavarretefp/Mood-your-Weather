@@ -25,8 +25,6 @@ struct SummaryView: View {
     }
     
     @Environment(\.modelContext) private var context
-    
-    @EnvironmentObject private var userDataModel : UserDataModel
     @StateObject private var homeViewModel = HomeViewModel()
     
     @Query(sort: \Register.date) private var registers: [Register]
