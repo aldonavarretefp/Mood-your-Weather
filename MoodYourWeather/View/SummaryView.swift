@@ -8,58 +8,120 @@
 import SwiftUI
 import SwiftData
 
-struct SummaryView: View {
+extension SummaryView {
     
-    enum DateFilter: Int, CaseIterable {
-        case last7Days
-        case lastMonth
-        case customDates
-        
-        var filterLabel: String {
-            switch self {
-            case .last7Days: return "Last 7 Days"
-            case .lastMonth: return "Last Month"
-            case .customDates: return "Custom Dates"
+    @Observable
+    class SummaryViewModel: ObservableObject {
+        var modelContext: ModelContext
+        var selectedDateFilter: DateFilter = .last7Days
+        var startDate = Date()
+        var endDate = Date()
+        var customStartDate = Date()
+        var customEndDate = Date()
+        var filteredRegisters: [Register] = []
+        var emojiCounts: Dictionary<String, Int> = [:]
+        var registers = [Register]()
+        enum DateFilter: Int, CaseIterable {
+            case last7Days
+            case lastMonth
+            case customDates
+            
+            var filterLabel: String {
+                switch self {
+                case .last7Days: return "Last 7 Days"
+                case .lastMonth: return "Last Month"
+                case .customDates: return "Custom Dates"
+                }
             }
         }
+        
+        init(modelContext: ModelContext) {
+            self.modelContext = modelContext
+            fetchData()
+        }
+        
+         private func fetchData() {
+            do {
+                let descriptor = FetchDescriptor<Register>()
+                registers = try modelContext.fetch(descriptor)
+            } catch {
+                print("Fetch failed")
+            }
+        }
+        func calculateBarValue(_ mood: Mood) -> (Int, Int) {
+            let emojiCount = emojiCounts[mood.emoji] ?? 0
+            let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
+            let value = emojiCount * 100 / totalOfRegisters
+            return (value, emojiCount)
+        }
+        func filterRegisters () {
+            emojiCounts = [:]
+            switch selectedDateFilter {
+            case .last7Days:
+                let last7Days = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+                startDate = last7Days
+                endDate = Date()
+            case .lastMonth:
+                let lastMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
+                startDate = lastMonth
+                endDate = Date()
+            default:
+                startDate = customStartDate
+                endDate = customEndDate
+            }
+            self.filteredRegisters = registers.filter { $0.date >= startDate && $0.date <= endDate }.sorted(by:{ $0.date < $1.date } )
+            self.calculateEmojiCounts(for: filteredRegisters)
+            
+        }
+        func calculateEmojiCounts(for registers: [Register]) {
+            for register in filteredRegisters {
+                // Populate dictionary
+                let emojis: [String] = register.emojis
+                for emoji in emojis {
+                    emojiCounts[emoji, default: 0] += 1
+                }
+            }
+            print(emojiCounts)
+        }
+        
+        
     }
     
-    @Environment(\.modelContext) private var context
+}
+
+struct SummaryView: View {
+    
     @StateObject private var homeViewModel = HomeViewModel()
+    @State private var summaryViewModel: SummaryViewModel
     
-    @Query(sort: \Register.date) private var registers: [Register]
-    
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var customStartDate = Date()
-    @State private var customEndDate = Date()
-    @State private var filteredRegisters: [Register] = []
-    @State private var emojiCounts: Dictionary<String, Int> = [:]
-    
-    @State private var selectedDateFilter: DateFilter = .last7Days
     private var dataManager = DataManager()
     @State private var tips: Dictionary<String, String> = [:]
+    
+    init(modelContext: ModelContext) {
+        let summaryViewModel = SummaryViewModel(modelContext: modelContext)
+        _summaryViewModel = State(initialValue: summaryViewModel)
+    }
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 25) {
-                    Picker("Date Filter", selection: $selectedDateFilter) {
-                        ForEach(DateFilter.allCases, id: \.self) { filter in
+                    Picker("Date Filter", selection: $summaryViewModel.selectedDateFilter) {
+                        ForEach(SummaryViewModel.DateFilter.allCases, id: \.self) { filter in
                             Text(filter.filterLabel).tag(filter)
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
-                    if selectedDateFilter == .customDates {
+                    if summaryViewModel.selectedDateFilter == .customDates {
                         HStack {
                             Text("From")
                                 .bold()
                                 .font(.body)
                                 .foregroundStyle(.accent)
                             DatePicker("Start Date",
-                                       selection: $customStartDate,
-                                       in: ...customEndDate,
+                                       selection: $summaryViewModel.customStartDate,
+                                       in: ...summaryViewModel.customEndDate,
                                        displayedComponents: [.date]
                             )
                             .datePickerStyle(.compact)
@@ -70,8 +132,8 @@ struct SummaryView: View {
                                 .font(.body)
                                 .foregroundStyle(.accent)
                             DatePicker("End Date",
-                                       selection: $customEndDate,
-                                       in: customStartDate...Date(),
+                                       selection: $summaryViewModel.customEndDate,
+                                       in: summaryViewModel.customStartDate...Date(),
                                        displayedComponents: .date
                             )
                             .datePickerStyle(.compact)
@@ -81,7 +143,7 @@ struct SummaryView: View {
                     VStack(spacing: 30) {
                         ForEach(homeViewModel.moods) {
                             mood in
-                            let (value, emojiCount) = calculateBarValue(mood)
+                            let (value, emojiCount) = summaryViewModel.calculateBarValue(mood)
                             HStack(alignment: .center) {
                                 EmojiButton(emoji: mood, hasBackground: false)
                                 VStack {
@@ -101,7 +163,7 @@ struct SummaryView: View {
                     .background(.gray.opacity(0.1))
                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                     NavigationLink(destination:
-                                    RegistersView(registers: filteredRegisters, tips: tips)
+                                    RegistersView(registers: summaryViewModel.filteredRegisters, tips: tips)
                         .environmentObject(homeViewModel)
                     ) {
                         Text("View registers")
@@ -109,21 +171,20 @@ struct SummaryView: View {
                     }
                 }
                 .onAppear {
-                    filterRegisters()
+                    summaryViewModel.filterRegisters()
                     dataManager.fetchData { jsonTips in
                         self.tips = jsonTips
                     }
                 }
-                .onChange(of: [selectedDateFilter]) { oldValue, newValue in
+                .onChange(of: [summaryViewModel.selectedDateFilter]) { oldValue, newValue in
                     withAnimation {
-                        filterRegisters()
+                        summaryViewModel.filterRegisters()
                     }
                 }
-                .onChange(of: [customStartDate, customEndDate], {
+                .onChange(of: [summaryViewModel.customStartDate, summaryViewModel.customEndDate], {
                     withAnimation {
-                        filterRegisters()
+                        summaryViewModel.filterRegisters()
                     }
-                    
                 })
             }
             .padding()
@@ -131,45 +192,7 @@ struct SummaryView: View {
         }
     }
     
-    private func calculateBarValue(_ mood: Mood) -> (Int, Int) {
-        let emojiCount = emojiCounts[mood.emoji] ?? 0
-        let totalOfRegisters = filteredRegisters.count != 0 ? filteredRegisters.count : 1
-        let value = emojiCount * 100 / totalOfRegisters
-        return (value, emojiCount)
-    }
-    func filterRegisters () {
-        emojiCounts = [:]
-        switch selectedDateFilter {
-        case .last7Days:
-            let last7Days = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            startDate = last7Days
-            endDate = Date()
-        case .lastMonth:
-            let lastMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
-            startDate = lastMonth
-            endDate = Date()
-        default:
-            startDate = customStartDate
-            endDate = customEndDate
-        }
-        self.filteredRegisters = registers.filter { $0.date >= startDate && $0.date <= endDate }.sorted(by:{ $0.date < $1.date } )
-        self.calculateEmojiCounts(for: filteredRegisters)
-        
-    }
-    func calculateEmojiCounts(for registers: [Register]) {
-        for register in filteredRegisters {
-            //            print(register.emojis)
-            // Populate dictionary
-            let emojis: [String] = register.emojis
-            for emoji in emojis {
-                emojiCounts[emoji, default: 0] += 1
-            }
-        }
-        print(emojiCounts)
-    }
+    
     
 }
 
-#Preview {
-    SummaryView()
-}

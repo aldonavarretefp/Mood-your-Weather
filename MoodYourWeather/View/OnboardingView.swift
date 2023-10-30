@@ -79,7 +79,6 @@ struct OnboardingView: View {
                     withAnimation {
                         self.isShowingText = true
                     }
-                    
                 }
             }
         .onTapGesture(perform: {

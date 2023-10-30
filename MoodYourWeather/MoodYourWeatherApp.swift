@@ -11,6 +11,8 @@ import SwiftData
 @main
 struct MoodYourWeatherApp: App {
     
+    @StateObject var notificationsManager: NotificationsManager = NotificationsManager()
+    
     let container: ModelContainer = {
         let schema = Schema([Register.self]);
         let container = try! ModelContainer(for: schema, configurations: []);
@@ -26,6 +28,7 @@ struct MoodYourWeatherApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(notificationsManager)
                 .modelContainer(container)
         }
     }

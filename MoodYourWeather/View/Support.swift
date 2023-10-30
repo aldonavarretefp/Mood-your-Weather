@@ -10,19 +10,16 @@ import SwiftUI
 struct SupportAlternative: View {
     let register: Register?
     @EnvironmentObject private var homeViewModel: HomeViewModel
+    @EnvironmentObject private var notificationsManager: NotificationsManager
     @Binding var path: [Register]
-    @State private var pickerSelection: String = ""
-    @Binding private var savedAlert: Bool
     @Environment(\.modelContext) private var context
     
     @State private var tips : Dictionary<String, String> = [:]
     private var dataManager: DataManager = DataManager()
     
-    init(path: Binding<[Register]>, register: Register, savedAlert: Binding<Bool>) {
+    init(path: Binding<[Register]>, register: Register) {
         self._path = path
         self.register = register
-        self.pickerSelection = register.emojis.first ?? ""
-        self._savedAlert = savedAlert
     }
     
     var body: some View {
@@ -32,6 +29,7 @@ struct SupportAlternative: View {
                     RegisterSummaryView(register: register, tips: tips)
                     Button {
                         saveRegisterInDB(register)
+                        notificationsManager.createNotification()
                     } label: {
                         Text("Save")
                             .buttonStyleModifier(.accent)
@@ -57,12 +55,11 @@ struct SupportAlternative: View {
         }
     }
     
+    
     private func saveRegisterInDB(_ register: Register) {
         context.insert(register) /// Save data in DB.
         self.homeViewModel.resetHomeView()
         path = [] /// Pop to root view
-        savedAlert = true; /// Asyncronously activating the saved alert because it should appear ~10ms after.
-        
     }
     func generateMockData() -> [Register] {
             var mockData: [Register] = []
@@ -94,7 +91,7 @@ struct SupportAlternative: View {
     Group {
         SupportAlternative(path: .constant([
             .init(emojis: ["🍎"], snapshot: UIImage(), date: Date())
-        ]), register: .init(emojis: ["🌧️","☀️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now), savedAlert: .constant(false))
+        ]), register: .init(emojis: ["🌧️","☀️"], snapshot: UIImage(systemName: "circle.fill")!, date: .now))
     }
     
 }

@@ -12,13 +12,10 @@ struct Tip : View {
     let tips : Dictionary<String, String>
     
     init(register: Register?, tips: Dictionary<String, String>) {
-        print(tips)
         self.register = register
         self.tips = tips
     }
     var body : some View {
-        // Checking every emoji combination in the dictionary, so that it can
-        // print the description associated
         if let emojis = register?.emojis.sorted().joined(), let description = tips[emojis]?.description {
             Text(description)
                 .font(.italic(.body)())

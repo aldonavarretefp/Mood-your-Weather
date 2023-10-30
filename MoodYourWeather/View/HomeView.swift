@@ -9,13 +9,15 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.modelContext) var context
+    
     // Model
     @StateObject private var homeViewModel = HomeViewModel()
     // State variables
     @State private var canvasImage: UIImage? = nil
     @State private var path: [Register] = []
     @State private var isAlertPresented: Bool = false
-    @State private var savedAlert: Bool = false
+    
+    
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 30) {
@@ -34,22 +36,21 @@ struct HomeView: View {
                         resetButton
                     }
                     doneButtonView
-                        .alert(isPresented: $isAlertPresented) {
-                            Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
-                        }
+                        
                 }
             }
             .padding()
             .navigationTitle("Mood Your Weather")
             .navigationDestination(for: Register.self) { register in
-                SupportAlternative(path: $path, register: register, savedAlert: $savedAlert)
+                SupportAlternative(path: $path, register: register)
                     .environmentObject(homeViewModel)
             }
-            .alert(isPresented: $savedAlert) {
-                Alert(title: Text("Tracking saved!"))
+            .alert(isPresented: $isAlertPresented) {
+                Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
             }
         }
     }
+    
 }
 
 extension HomeView {

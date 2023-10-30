@@ -9,8 +9,14 @@ import SwiftUI
 
 struct RegisterSummaryView: View {
     var register: Register
-    @State private var pickerSelection: String = ""
+    @State private var pickerSelection: String
     var tips : Dictionary<String, String> = [:]
+    
+    init(register: Register, tips: Dictionary<String, String> = [:], pickerSelection: String = "") {
+        self.register = register
+        self.pickerSelection = register.emojis.first!
+        self.tips = tips
+    }
     
     var body: some View {
         VStack(spacing: 25) {
@@ -23,14 +29,14 @@ struct RegisterSummaryView: View {
                     .frame(width: 300)
                     .padding(.bottom, -55)
             }
-            Picker("", selection: $pickerSelection) {
-                ForEach(0..<register.emojis.count, id: \.self) { index in
-                    let emoji = register.emojis[index]
-                    Text(emoji).tag(emoji)
+            if register.emojis.count != 1 {
+                Picker("", selection: $pickerSelection) {
+                    ForEach(0..<register.emojis.count, id: \.self) { index in
+                        let emoji = register.emojis[index]
+                        Text(emoji).tag(emoji)
+                    }
                 }
-            }
-            .pickerStyle(.segmented)
-            if !(register.emojis.count == 1) {
+                .pickerStyle(.segmented)
                 Text(Constants.emojisDescription[pickerSelection] ?? "")
                     .transition(.opacity)
             }
