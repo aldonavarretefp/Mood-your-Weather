@@ -19,28 +19,31 @@ struct RegisterSummaryView: View {
     }
     
     var body: some View {
-        VStack(spacing: 25) {
-            if let snapshot = register.snapshot, let uiImage = UIImage(data: snapshot)  {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .offset(y: -60) // Translating the image upwards
-                    .scaledToFit()
-                    .clipped()
-                    .frame(width: 300)
-                    .padding(.bottom, -55)
-            }
-            if register.emojis.count != 1 {
-                Picker("", selection: $pickerSelection) {
-                    ForEach(0..<register.emojis.count, id: \.self) { index in
-                        let emoji = register.emojis[index]
-                        Text(emoji).tag(emoji)
-                    }
+        ScrollView {
+            VStack(spacing: 25) {
+                if let snapshot = register.snapshot, let uiImage = UIImage(data: snapshot)  {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .offset(y: -60) // Translating the image upwards
+                        .scaledToFit()
+                        .clipped()
+                        .frame(width: 300)
+                        .padding(.bottom, -55)
                 }
-                .pickerStyle(.segmented)
-                Text(Constants.emojisDescription[pickerSelection] ?? "")
-                    .transition(.opacity)
+                if register.emojis.count != 1 {
+                    Picker("", selection: $pickerSelection) {
+                        ForEach(0..<register.emojis.count, id: \.self) { index in
+                            let emoji = register.emojis[index]
+                            Text(emoji).tag(emoji)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    Text(Constants.emojisDescription[pickerSelection] ?? "")
+                        .transition(.opacity)
+                }
+                Tip(register: register, tips: self.tips)
             }
-            Tip(register: register, tips: self.tips)
+            .padding()
         }
         
     }
