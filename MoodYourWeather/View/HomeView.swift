@@ -20,15 +20,15 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack(spacing: 30) {
-                instructionsText
+            VStack(alignment: .leading, spacing: 30) {
+                    instructionsText
                 HStack {
                     Canvas()
                         .shadow(radius: 10)
                         .environmentObject(homeViewModel)
                     Spacer()
                     EmojiPickerView(viewModel: homeViewModel)
-                    Spacer()
+                    
                 }
                 Spacer()
                 VStack {
@@ -90,11 +90,13 @@ extension HomeView {
     }
     
     private var instructionsText: some View {
-        Text("Drag and drop the emojis to express yourself " + "and mood your weather.")
-            .font(.headline)
+        Text("Drag and drop the emojis to express yourself and mood your weather.")
+            .font(.title3)
             .fontWeight(.regular)
             .foregroundStyle(.accent)
-            .multilineTextAlignment(.leading)
+            .frame(height: 50)
+
+            
     }
 }
 
