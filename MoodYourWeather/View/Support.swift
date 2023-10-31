@@ -34,7 +34,7 @@ struct SupportAlternative: View {
                         Text("Save")
                             .buttonStyleModifier(.accent)
                     }
-                    Button {
+                    /*Button {
                         let registers = generateMockData()
                         for r in registers {
                             context.insert(r)
@@ -42,7 +42,7 @@ struct SupportAlternative: View {
                     } label: {
                         Text("Mock Data")
                             .buttonStyleModifier(.accent)
-                    }
+                    }*/
                 }
                 .padding()
             }
