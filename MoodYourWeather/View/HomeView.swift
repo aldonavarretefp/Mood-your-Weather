@@ -91,11 +91,9 @@ extension HomeView {
     
     private var instructionsText: some View {
         Text("Drag and drop the emojis to express yourself and mood your weather.")
-            .font(.title3)
+            .font(.title2)
             .fontWeight(.regular)
             .foregroundStyle(.accent)
-            .frame(height: 50)
-
             
     }
 }
