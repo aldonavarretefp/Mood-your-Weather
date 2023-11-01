@@ -20,33 +20,35 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack(alignment: .leading, spacing: 30) {
-                    instructionsText
-                HStack {
-                    Canvas()
-                        .shadow(radius: 10)
-                        .environmentObject(homeViewModel)
-                    Spacer()
-                    EmojiPickerView(viewModel: homeViewModel)
-                    
-                }
-                Spacer()
-                VStack {
-                    if !homeViewModel.emojisInCanvas.isEmpty {
-                        resetButton
-                    }
-                    doneButtonView
+            ScrollView {
+                VStack(alignment: .leading, spacing: 30) {
+                        instructionsText
+                    HStack {
+                        Canvas()
+                            .shadow(radius: 10)
+                            .environmentObject(homeViewModel)
+                        Spacer()
+                        EmojiPickerView(viewModel: homeViewModel)
                         
+                    }
+                    Spacer()
+                    VStack {
+                        if !homeViewModel.emojisInCanvas.isEmpty {
+                            resetButton
+                        }
+                        doneButtonView
+                            
+                    }
                 }
+                .padding()
+                .navigationTitle("Mood Your Weather")
+                .navigationDestination(for: Register.self) { register in
+                    SupportAlternative(path: $path, register: register)
+                        .environmentObject(homeViewModel)
+                }
+                .alert(isPresented: $isAlertPresented) {
+                    Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
             }
-            .padding()
-            .navigationTitle("Mood Your Weather")
-            .navigationDestination(for: Register.self) { register in
-                SupportAlternative(path: $path, register: register)
-                    .environmentObject(homeViewModel)
-            }
-            .alert(isPresented: $isAlertPresented) {
-                Alert(title: Text("We are so sorry! "), message: Text("You at least need to have one emoji."))
             }
         }
     }
